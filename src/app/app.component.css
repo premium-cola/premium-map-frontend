@@ -1,0 +1,65 @@
+#map {
+    height: 100%;
+    width: 100%;	
+}
+
+@font-face {
+	font-family: 'franklingothic';
+	src:    url('/assets/fonts/franklingothic/franklingothicsb-xcon-webfont.woff2') format('woff2'),
+	        url('/assets/fonts/franklingothic/franklingothicsb-xcon-webfont.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/*  */
+#topbar {
+	top: 0;
+	left: 0;
+	padding: 0;
+	margin:0;
+	position: absolute;
+	z-index: 2000;
+	width: 100%;
+    padding: 12px;
+    display: flex;
+    justify-content: flex-end;
+    box-sizing: border-box;
+}
+
+#topbar input[type=text], a {
+    font-family: franklingothic,"Helvetica Neue", Arial, Helvetica, sans-serif;
+    height: 39px;
+    font-size: 20px;
+    color: black;
+    box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.45);
+    border: 0;
+    border-radius: 3px;
+    padding: 0 8px;
+}
+
+#topbar input[type=text] {
+    outline: none;
+    flex-grow: 2;
+}
+
+#topbar a {
+    background-color: white;
+    text-decoration: none;
+    line-height: 39px;
+    margin: 0 6px;
+}
+
+#topbar img {
+    float: left;
+    height: 32px;
+    width: 28px;
+    margin: 3px 8px 0 0;
+}
+
+#searchbar-icon {
+    background: transparent;
+    font-size: 20px;
+    border: 0;
+    position: relative;
+    right: 33px;
+}
