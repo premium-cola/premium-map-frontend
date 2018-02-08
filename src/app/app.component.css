@@ -35,11 +35,17 @@
     border: 0;
     border-radius: 3px;
     padding: 0 8px;
+    box-sizing: border-box;
+}
+
+#topbar #searchArea {
+    flex-grow: 2;
+    position: relative;
 }
 
 #topbar input[type=text] {
     outline: none;
-    flex-grow: 2;
+    width: 100%;
 }
 
 #topbar a {
@@ -56,10 +62,29 @@
     margin: 3px 8px 0 0;
 }
 
-#searchbar-icon {
+#searchbarButton {
     background: transparent;
     font-size: 20px;
     border: 0;
-    position: relative;
-    right: 33px;
+    position: absolute;
+    right: 0;
+    top: 7px;
+}
+
+#searchArea #searchResults {
+    box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.45);
+    margin-top: 3px;
+}
+
+.searchResult .name {
+    font-family: franklingothic,"Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-size: 20px;
+}
+
+#searchArea .searchResult {
+    width: 100%;
+    background-color: white;
+    height: 60px;
+    cursor: pointer;
+    border-top: 1px solid gray;
 }

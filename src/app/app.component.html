@@ -1,8 +1,17 @@
 <div id="topbar">
-  <input type="text" id="searchbar" placeholder="Stadt oder Adresse eingeben..." />
-  <button id="searchbar-icon" type="button">
-    <i class="fa fa-search" aria-hidden="true"></i>
-  </button>
+  <div id="searchArea">
+    <input type="text" id="searchbar" placeholder="Stadt oder Adresse eingeben..." #searchInput (keyup)="debounceSearchInput.next(searchInput.value)">
+    <button id="searchbarButton" type="button">
+      <i class="fa fa-search" aria-hidden="true"></i>
+    </button>
+    <div id="searchResults">
+      <div class="searchResult" *ngFor="let searchResult of searchResults">
+        <img src="">
+        {{ searchResult.name }}
+        {{ searchResult.street }}, {{ searchResult.zip }} {{ searchResult.city }}
+      </div>
+    </div>
+  </div>
   <a title="Klick zum ein oder ausblenden.">
     <img src="/assets/img/marker/marker-icon-l.svg" />Laden
   </a>
