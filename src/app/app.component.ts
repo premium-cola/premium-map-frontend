@@ -14,14 +14,28 @@ export class AppComponent {
   private defaultHomePosition: L.LatLng = L.latLng(50.93766174471314, 9.777832031250002);
   private defaultZoomLevel: number = 7;
 
+  // State of the shop types in the top bar
+  public shopTypesState = {
+    laeden: false,
+    haendler: false,
+    sprecher: false,
+    webshop: false
+  }
+  private itemList: Array<any>;
+  
   public debounceSearchInput: Subject<string> = new Subject();
   public searchResults: Array<any>;
+
+  public legendOpen: boolean = false;
+  public imprintOpen: boolean = false;
 
   constructor(
     private searchService: SearchService,
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.itemList = await this.searchService.itemList(this.enabledShopTypes());
+
     this.initalizeMap();
     this.centerPositionOnMap();
 
@@ -32,12 +46,43 @@ export class AppComponent {
 
   private initalizeMap() {
     this.map = L.map('map', {
-      maxZoom: 19
+      maxZoom: 19,
+      zoomControl: false,
     });
 
     L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(this.map);
+
+    // Add zoom control to the bottom left
+    L.control.zoom({
+      position: 'bottomleft',
+    }).addTo(this.map);
+
+    let imprintControl = L.Control.extend({
+      options: {
+        position: 'bottomright' 
+      },
+      onAdd: (map) => {
+        let container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
+        container.style.backgroundColor = 'white';
+        container.style.width = '30px';
+        container.style.height = '30px';
+        container.innerText = 'i';
+        container.style.fontFamily = 'icomoon';
+        container.style.fontSize = '100%';
+        container.style.textAlign = 'center';
+        container.style.fontWeight = '700';
+        container.style.fontSize = '20px';
+        container.style.cursor = 'pointer';
+        container.onclick = () => {
+          this.toggleImprint();
+        }
+        return container;
+      },
+    });
+
+    this.map.addControl(new imprintControl());
   }
 
   /**
@@ -62,7 +107,25 @@ export class AppComponent {
   public async search(searchKeyword: string) {
     let searchResults = await this.searchService.search(searchKeyword);
     this.searchResults = searchResults.json().data.items;
-    console.log(this.searchResults);
   }
 
+  public toggleFilter(keyword: string) {
+    this.shopTypesState[keyword] = !this.shopTypesState[keyword];
+  }
+
+  public enabledShopTypes(): Array<string> {
+    let enabledShopTypes = [];
+    for(let shopType in this.shopTypesState) {
+      if(!this.shopTypesState[shopType]) enabledShopTypes.push(shopType);
+    }
+    return enabledShopTypes;
+  }
+
+  public toggleLegend() {
+    this.legendOpen = !this.legendOpen;
+  }
+
+  public toggleImprint() {
+    this.imprintOpen = !this.imprintOpen;
+  }
 }

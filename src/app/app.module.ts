@@ -6,10 +6,12 @@ import { AppComponent } from './app.component';
 // Providers
 import { HttpModule } from '@angular/http';
 import { SearchService } from './search.service';
+import { PopupComponent } from './popup/popup.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PopupComponent
   ],
   imports: [
     BrowserModule,

@@ -49,10 +49,18 @@
 }
 
 #topbar a {
+    cursor: pointer;
+}
+
+#topbar a {
     background-color: white;
     text-decoration: none;
     line-height: 39px;
     margin: 0 6px;
+}
+
+#topbar a.disabled {
+    color: lightgray;
 }
 
 #topbar img {
