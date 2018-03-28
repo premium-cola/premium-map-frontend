@@ -49,10 +49,8 @@
 }
 
 #topbar a {
+    user-select: none;
     cursor: pointer;
-}
-
-#topbar a {
     background-color: white;
     text-decoration: none;
     line-height: 39px;

@@ -5,8 +5,8 @@
       <i class="fa fa-search" aria-hidden="true"></i>
     </button>
     <div id="searchResults">
-      <div class="searchResult" *ngFor="let searchResult of searchResults">
-        <img src=""> {{ searchResult.name }} {{ searchResult.street }}, {{ searchResult.zip }} {{ searchResult.city }}
+      <div class="searchResult" *ngFor="let searchResult of searchResults" (click)="showDetails(searchResult)">
+        <img src="assets/img/marker/{{ searchService.mapShopTypesToImage(['1']) }}"> {{ searchResult.name }} {{ searchResult.street }}, {{ searchResult.zip }} {{ searchResult.city }}
       </div>
     </div>
   </div>

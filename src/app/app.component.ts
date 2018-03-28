@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SearchService } from './search.service';
+import { SearchService, SearchResult } from './search.service';
 import { Subject } from 'rxjs';
 
 import * as L from 'leaflet';
@@ -24,7 +24,7 @@ export class AppComponent {
   private itemList: Array<any>;
   
   public debounceSearchInput: Subject<string> = new Subject();
-  public searchResults: Array<any>;
+  public searchResults: Array<SearchResult>;
 
   public legendOpen: boolean = false;
   public imprintOpen: boolean = false;
@@ -50,8 +50,8 @@ export class AppComponent {
       zoomControl: false,
     });
 
-    L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(this.map);
 
     // Add zoom control to the bottom left
@@ -59,6 +59,7 @@ export class AppComponent {
       position: 'bottomleft',
     }).addTo(this.map);
 
+    // 
     let imprintControl = L.Control.extend({
       options: {
         position: 'bottomright' 
@@ -86,12 +87,16 @@ export class AppComponent {
   }
 
   /**
-   * Sets the current position to the center of the map
+   * Recenters the map to the current position of the user.
    */
   private centerPositionOnMap() {
     var lastCurrentPosition: Position = JSON.parse(localStorage.getItem('lastCurrentPosition'));
 
-    // Checks if the last saved position is no older than 30 minutes
+    /**
+     * Checks if the last saved position is no older than 30 minutes.
+     * If it isn't oldet than 30 minutes then the location is used immediately instead of requesting it 
+     * through the browser API.
+     */
     if(lastCurrentPosition && ((Math.floor((new Date()).getTime() / 1000) - lastCurrentPosition.timestamp) <= 1800)) {
       this.map.setView(L.latLng(lastCurrentPosition.coords.latitude, lastCurrentPosition.coords.longitude), 14);
     } else {
@@ -109,10 +114,22 @@ export class AppComponent {
     this.searchResults = searchResults.json().data.items;
   }
 
+  /**
+   * Enabled or disabled a specific shop type filter. The more shop type filters are enabled
+   * the more specific the results are.
+   * 
+   * @param keyword A shop type that should be included or excluded from the filter list
+   */
   public toggleFilter(keyword: string) {
     this.shopTypesState[keyword] = !this.shopTypesState[keyword];
   }
 
+  /**
+   * Returns a list of strings of enabled "shop types" which are essentially categories.
+   * 
+   * All enabled shop types are shown in the UI as buttons that have a dark text color.
+   * Buttons with light text color represents disabled shop types.
+   */
   public enabledShopTypes(): Array<string> {
     let enabledShopTypes = [];
     for(let shopType in this.shopTypesState) {
@@ -121,10 +138,25 @@ export class AppComponent {
     return enabledShopTypes;
   }
 
+  /**
+   * Show details in a popup windows about a specific shop
+   * 
+   * @param searchResult detailed information about a shop
+   */
+  public showDetails(searchResult: SearchResult) {
+    console.log(searchResult);
+  }
+
+  /**
+   * Open/Closes the legend popup
+   */
   public toggleLegend() {
     this.legendOpen = !this.legendOpen;
   }
 
+  /**
+   * Open/Closes the imprint popup
+   */
   public toggleImprint() {
     this.imprintOpen = !this.imprintOpen;
   }
