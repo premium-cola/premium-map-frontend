@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SearchService, SearchResult } from './search.service';
+import { SearchService, SearchResult, Item } from './search.service';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -105,7 +105,7 @@ export class AppComponent {
    * This firstly adds a MarkerClusterGroup where the actual markers are then added.
    * Finally the MarkerClusterGroup is added to the map.
    */
-  private updateMarker() {
+  private async updateMarker() {
     if(this.markerClusterGroup && this.markerClusterGroup.getLayers().length) {
       this.markerClusterGroup.clearLayers();
     }
@@ -121,13 +121,30 @@ export class AppComponent {
       }
     });
 
-    this.itemList.map((item: any) => {
-      L.marker(L.latLng(item[1][0], item[1][1]), {
+    this.itemList.map((item: any[]) => {
+      let marker: CustomMarker;
+      marker = new CustomMarker(item[0], L.latLng(item[1][0], item[1][1]), {
         icon: L.icon({
           iconUrl: `assets/img/marker/${this.searchService.mapShopTypesToImage(item[2])}`,
           iconSize: [36, 42],
         })
-      }).addTo(this.markerClusterGroup);
+      });
+
+      // TODO: Add loading spinner
+      marker.bindPopup((item) => {
+        console.log(item);
+        return '';
+      });
+
+      // TODO: Load content from endpoint
+      marker.addEventListener('click', (event: L.LeafletEvent) => {
+        let marker: CustomMarker = event.target as CustomMarker;
+        this.searchService.itemDetails(marker.getId()).subscribe((item: Item) => {
+          console.log(item);
+        });
+      })
+
+      marker.addTo(this.markerClusterGroup);
     });
 
     this.markerClusterGroup.addTo(this.map);
@@ -217,5 +234,22 @@ export class AppComponent {
   public clearSearchResults() {
     // this.searchResults = [];
     // this.debounceSearchInput.next();
+  }
+}
+
+export class CustomMarker extends L.Marker {
+  private id: number;
+
+  constructor(id: number, latlng: L.LatLngExpression, options?: L.MarkerOptions) {
+    super(latlng, options);
+    this.id = id;
+  }
+
+  public getId(): number {
+    return this.id;
+  }
+
+  public setId(id: number) {
+    this.id = id;
   }
 }
