@@ -1,8 +1,7 @@
 import { Injectable, keyframes } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { HttpResponse } from 'selenium-webdriver/http';
-
-import "rxjs/add/operator/map";
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class SearchService {
@@ -11,46 +10,61 @@ export class SearchService {
   private host = 'https://cola.gacrux.uberspace.de';
   private searchPath = '/search';
   private itemListPath = '/item/list';
+  private itemDetailsPath = '/item';
 
   constructor(
-    private http: Http,
+    private http: HttpClient,
   ) { }
 
   /**
-   * TODO: Map directly to JSON instead of doing that in the app.components.ts
-   * 
-   * @param keyword 
+   * @param keyword the keyword to search for
    */
-  public search(keyword: string): Promise<Response> {
+  public search(keyword: string): Observable<SearchResult[]> {
     let url = `${this.host}${this.searchPath}`;
     if(keyword !== "") url += `/${keyword}`;
-    return this.http.get(url).toPromise();
+    return this.http.get<any>(url).pipe(map(res => res.data.items as SearchResult[]));
+  }
+
+  public itemDetails(id: number): Observable<Item> {
+    const url = `${this.host}${this.itemDetailsPath}/${id}`;
+    return this.http.get<any>(url).pipe(map((res) => res.data as Item));
   }
 
   // https://<host>/item/list?types[]=haendler&types[]=sprecher&types[]=webshop
-  public itemList(types: Array<string>): Promise<Array<any>> {
+  public itemList(types: string[]): Observable<any[]> {
     let url = `${this.host}${this.itemListPath}`;
     url += `?types[]=${types.join('&types[]=')}`;
-    return this.http.get(url).map(itemList => itemList.json().data).toPromise();
+    return this.http.get<any>(url).pipe(map(itemList => itemList.data as any[]));
   }
 
+  /**
+   * This function returns the svg filename for the specified shop type list
+   * which is than used in the search result.
+   * 
+   * @param shopTypes A list of shop types e.g.: ["3", "2"]
+   */
   public mapShopTypesToImage(shopTypes: Array<string>) {
+    let normalizedShopTypes = [];
+    shopTypes.map(item => {
+      normalizedShopTypes.push(`${item}`);
+    });
+
     let abbriviation = "";
 
     // s = Sprecher/lokaler Kontakt, l = Laden
-    if(shopTypes.indexOf("3") && shopTypes.indexOf("1")) {
+    if(normalizedShopTypes.indexOf("3") && normalizedShopTypes.indexOf("1")) {
       abbriviation = "sl";
     // s = Sprecher/lokaler Kontakt, l = Laden
-    } else if(shopTypes.indexOf("3") && shopTypes.indexOf("2")) {
+    } else if(normalizedShopTypes.indexOf("3") && normalizedShopTypes.indexOf("2")) {
       abbriviation = "sh";
     // l = Laden
-    } else if(shopTypes.indexOf("1") && shopTypes.length == 1) {
+    } else if(normalizedShopTypes.indexOf("1") && normalizedShopTypes.length == 1) {
       abbriviation = "l";
     // h = Haendler
-    } else if(shopTypes.indexOf("2") && shopTypes.length == 1) {
+    } else if(normalizedShopTypes.indexOf("2") && normalizedShopTypes.length == 1) {
       abbriviation = "h";
     // s = Sprecher/lokaler Kontakt
-    } else if(shopTypes.indexOf("3") && shopTypes.length == 1) {
+    } else if(normalizedShopTypes.indexOf("3") && normalizedShopTypes.length == 1) {
       abbriviation = "s";
     }
 
@@ -71,6 +85,20 @@ export interface SearchResult {
   city: string;
   street: string;
   zip: string;
+}
+
+export interface Item {
+  id: number,
+  name: string,
+  street: string,
+  products: string[],
+  offertypes: string[],
+  city: string,
+  zip: string,
+  web: string,
+  email: string,
+  phone: string,
+  uri: string
 }
 
 export enum ShopType {

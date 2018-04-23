@@ -1,9 +1,19 @@
 import { Component } from '@angular/core';
 import { SearchService, SearchResult } from './search.service';
 import { Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import * as L from 'leaflet';
+import 'leaflet.markercluster';
 
+/**
+ * TODO:
+ * - Deactivate "zoom on current location" if a manual zoom in/out was triggered
+ * - Open Popup if a Marker on the map is clicked
+ * - Make top bar responsive
+ * - Remember active and inactive filter in localStorage
+ * - Filter icon should be visually disabled if the filter itself is disabled
+ */
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,6 +21,7 @@ import * as L from 'leaflet';
 })
 export class AppComponent {
   private map: L.Map;
+  private markerClusterGroup: L.MarkerClusterGroup;
   private defaultHomePosition: L.LatLng = L.latLng(50.93766174471314, 9.777832031250002);
   private defaultZoomLevel: number = 7;
 
@@ -21,10 +32,10 @@ export class AppComponent {
     sprecher: false,
     webshop: false
   }
-  private itemList: Array<any>;
+  private itemList: any[];
   
   public debounceSearchInput: Subject<string> = new Subject();
-  public searchResults: Array<SearchResult>;
+  public searchResults: SearchResult[];
 
   public legendOpen: boolean = false;
   public imprintOpen: boolean = false;
@@ -34,9 +45,13 @@ export class AppComponent {
   ) {}
 
   async ngOnInit() {
-    this.itemList = await this.searchService.itemList(this.enabledShopTypes());
-
     this.initalizeMap();
+
+    this.searchService.itemList(this.enabledShopTypes()).subscribe(itemList => {
+      this.itemList = itemList;
+      this.updateMarker();
+    });
+
     this.centerPositionOnMap();
 
     this.debounceSearchInput.debounceTime(200).subscribe((searchKeyword: string) => {
@@ -59,7 +74,7 @@ export class AppComponent {
       position: 'bottomleft',
     }).addTo(this.map);
 
-    // 
+    // Add imprint control button
     let imprintControl = L.Control.extend({
       options: {
         position: 'bottomright' 
@@ -87,6 +102,38 @@ export class AppComponent {
   }
 
   /**
+   * This firstly adds a MarkerClusterGroup where the actual markers are then added.
+   * Finally the MarkerClusterGroup is added to the map.
+   */
+  private updateMarker() {
+    if(this.markerClusterGroup && this.markerClusterGroup.getLayers().length) {
+      this.markerClusterGroup.clearLayers();
+    }
+
+    this.markerClusterGroup = L.markerClusterGroup({
+      maxClusterRadius: 60,
+      polygonOptions: {
+        fillColor: '#000',
+        color: '#000',
+        weight: 4,
+        opacity: 0.5,
+        fillOpacity: 0.2
+      }
+    });
+
+    this.itemList.map((item: any) => {
+      L.marker(L.latLng(item[1][0], item[1][1]), {
+        icon: L.icon({
+          iconUrl: `assets/img/marker/${this.searchService.mapShopTypesToImage(item[2])}`,
+          iconSize: [36, 42],
+        })
+      }).addTo(this.markerClusterGroup);
+    });
+
+    this.markerClusterGroup.addTo(this.map);
+  }
+
+  /**
    * Recenters the map to the current position of the user.
    */
   private centerPositionOnMap() {
@@ -110,8 +157,9 @@ export class AppComponent {
   }
 
   public async search(searchKeyword: string) {
-    let searchResults = await this.searchService.search(searchKeyword);
-    this.searchResults = searchResults.json().data.items;
+    this.searchService.search(searchKeyword).subscribe((searchResults: SearchResult[]) => {
+      this.searchResults = searchResults;
+    })
   }
 
   /**
@@ -120,8 +168,12 @@ export class AppComponent {
    * 
    * @param keyword A shop type that should be included or excluded from the filter list
    */
-  public toggleFilter(keyword: string) {
+  public async toggleFilter(keyword: string) {
     this.shopTypesState[keyword] = !this.shopTypesState[keyword];
+    this.searchService.itemList(this.enabledShopTypes()).subscribe(itemList => {
+      this.itemList = itemList;
+      this.updateMarker();
+    });
   }
 
   /**
@@ -145,6 +197,7 @@ export class AppComponent {
    */
   public showDetails(searchResult: SearchResult) {
     console.log(searchResult);
+  
   }
 
   /**
@@ -159,5 +212,10 @@ export class AppComponent {
    */
   public toggleImprint() {
     this.imprintOpen = !this.imprintOpen;
+  }
+
+  public clearSearchResults() {
+    // this.searchResults = [];
+    // this.debounceSearchInput.next();
   }
 }

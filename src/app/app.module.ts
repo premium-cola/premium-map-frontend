@@ -4,9 +4,9 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 
 // Providers
-import { HttpModule } from '@angular/http';
 import { SearchService } from './search.service';
 import { PopupComponent } from './popup/popup.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -15,7 +15,7 @@ import { PopupComponent } from './popup/popup.component';
   ],
   imports: [
     BrowserModule,
-    HttpModule,
+    HttpClientModule,
   ],
   providers: [
     SearchService,

@@ -1,12 +1,18 @@
-<div id="topbar">
-  <div id="searchArea">
-    <input type="text" id="searchbar" placeholder="Stadt oder Adresse eingeben..." #searchInput (keyup)="debounceSearchInput.next(searchInput.value)">
-    <button id="searchbarButton" type="button">
+<div class="topbar">
+  <div class="searchArea">
+    <input type="text" class="searchbar" placeholder="Stadt oder Adresse eingeben..." #searchInput (blur)="clearSearchResults()" (keyup)="debounceSearchInput.next(searchInput.value)">
+    <button class="searchbarButton" type="button">
       <i class="fa fa-search" aria-hidden="true"></i>
     </button>
-    <div id="searchResults">
-      <div class="searchResult" *ngFor="let searchResult of searchResults" (click)="showDetails(searchResult)">
-        <img src="assets/img/marker/{{ searchService.mapShopTypesToImage(['1']) }}"> {{ searchResult.name }} {{ searchResult.street }}, {{ searchResult.zip }} {{ searchResult.city }}
+    <div class="searchResults">
+      <div class="searchResult" *ngFor="let searchResult of searchResults | slice:0:3" (click)="showDetails(searchResult)">
+        <img src="assets/img/marker/{{ searchService.mapShopTypesToImage(['1']) }}">
+        <div>
+          <h3>
+            {{ searchResult.name }}
+          </h3>
+          {{ searchResult.street }}, {{ searchResult.zip }} {{ searchResult.city }}
+        </div>
       </div>
     </div>
   </div>
