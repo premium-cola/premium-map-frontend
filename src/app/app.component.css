@@ -27,7 +27,7 @@
 }
 
 .topbar input[type=text], a {
-    font-family: franklingothic,"Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-family: franklingothic, "Helvetica Neue", Arial, Helvetica, sans-serif;
     height: 39px;
     font-size: 20px;
     color: black;
@@ -82,10 +82,6 @@
     margin-top: 3px;
 }
 
-.searchResult .h3 {
-    font-family: franklingothic,"Helvetica Neue", Arial, Helvetica, sans-serif;
-    font-size: 20px;
-}
 
 .searchResult:hover {
     background-color: black;
@@ -93,11 +89,18 @@
 }
 
 .searchResult {
+    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
     width: 100%;
     background-color: white;
     height: 60px;
+    font-size: 14px;
     cursor: pointer;
     border-top: 1px solid gray;
+}
+
+.searchResult h3 {
+    font-family: franklingothic, "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-size: 20px;
 }
 
 .searchResult:first-child {
