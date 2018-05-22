@@ -154,4 +154,34 @@ app-popup {
     font-family: franklingothic, "Helvetica Neue", Arial, Helvetica, sans-serif;
     font-size: 26px;
   }
+
+  input,
+  textarea {
+    border-radius: 3px;
+    padding: 8px;
+    font-size: 14px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    width: calc(100% - 18px);
+  }
+
+  textarea {
+    height: 150px;
+  }
+
+  button {
+    font-family: franklingothic, "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-size: 26px;
+    background-color: black;
+    color: white;
+    padding: 6px 12px;
+    border: 1px solid black;
+    border-radius: 3px;
+    margin-top: 10px;
+  }
+
+  button:hover {
+    color: black;
+    background-color: white;
+  }
 }

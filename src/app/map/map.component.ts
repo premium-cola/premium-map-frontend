@@ -41,8 +41,12 @@ export class MapComponent implements OnInit {
 
   public legendOpen = false;
   public imprintOpen = false;
+  public feedbackOpen = false;
 
-  private itemIdToShow: number;
+  public selectedItem: Item;
+
+  public feedbackEmail = "";
+  public feedbackText = "";
 
   constructor(
     private route: ActivatedRoute,
@@ -51,6 +55,11 @@ export class MapComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
+    this.route.fragment.subscribe(fragment => {
+      if (fragment === "feedback") {
+        this.feedbackOpen = true;
+      }
+    });
     this.initalizeMap();
 
     this.searchService.itemList(this.enabledShopTypes()).subscribe(itemList => {
@@ -172,6 +181,7 @@ export class MapComponent implements OnInit {
         this.searchService
           .itemDetails(marker.getId())
           .subscribe((itemDetails: Item) => {
+            this.selectedItem = itemDetails;
             marker.setPopupContent(`
               <h2>${itemDetails.name}</h2>
               <small>${itemDetails.products.join(", ")}</small>
@@ -183,7 +193,7 @@ export class MapComponent implements OnInit {
               <p>
                 ${
                   itemDetails.email
-                    ? "<i class='fa fa-envelope' aria-hidden='true'></i> <a href='mailto:'" +
+                    ? "<i class='fa fa-envelope' aria-hidden='true'></i> <a href='mailto:" +
                       itemDetails.email +
                       "'>" +
                       itemDetails.email +
@@ -202,7 +212,9 @@ export class MapComponent implements OnInit {
               </p>
               <p>
                 <i class="fa fa-bullhorn" aria-hidden="true"></i>
-                Feedback zu diesem Eintrag?
+                <a href="${
+                  itemDetails.id
+                }#feedback">Feedback zu diesem Eintrag?</a>
               </p>
             `);
           });
@@ -341,6 +353,19 @@ export class MapComponent implements OnInit {
    */
   public toggleImprint() {
     this.imprintOpen = !this.imprintOpen;
+  }
+
+  public toggleFeedback() {
+    this.feedbackOpen = !this.feedbackOpen;
+    if (!this.feedbackOpen) {
+      window.location.hash = "";
+    }
+  }
+
+  public sendFeedback() {
+    this.searchService
+      .sendFeedback(this.selectedItem, this.feedbackEmail, this.feedbackText)
+      .subscribe();
   }
 
   public clearSearchResults() {
