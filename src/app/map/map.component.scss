@@ -128,5 +128,30 @@
 app-popup {
   a {
     color: #888;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .info {
+    background-color: #dddddd;
+    color: #3f3f3f;
+    border-radius: 3px;
+    margin: 10px 0 0 0;
+    padding: 12px;
+  }
+
+  h2 img {
+    height: 32px;
+    margin-bottom: -6px;
+  }
+
+  h1,
+  h2 {
+    font-family: franklingothic, "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-size: 26px;
   }
 }
