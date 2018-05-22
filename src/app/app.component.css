@@ -1,6 +1,7 @@
 #map {
     height: 100%;
     width: 100%;	
+    z-index: 10;
 }
 
 @font-face {
@@ -18,7 +19,7 @@
 	padding: 0;
 	margin:0;
 	position: absolute;
-	z-index: 2000;
+	z-index: 50;
 	width: 100%;
     padding: 12px;
     display: flex;
@@ -26,7 +27,7 @@
     box-sizing: border-box;
 }
 
-.topbar input[type=text], a {
+.topbar input[type=text], .topbar a {
     font-family: franklingothic, "Helvetica Neue", Arial, Helvetica, sans-serif;
     height: 39px;
     font-size: 20px;
