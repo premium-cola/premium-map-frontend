@@ -98,6 +98,11 @@ export class SearchService {
       normalizedShopTypes.length === 1
     ) {
       abbriviation = "s";
+    } else if (
+      normalizedShopTypes.indexOf("4") &&
+      normalizedShopTypes.length === 1
+    ) {
+      abbriviation = "o";
     }
 
     return `${["marker-icon", abbriviation].join("-")}.svg`;
