@@ -184,6 +184,7 @@ export class MapComponent implements OnInit {
             this.selectedItem = itemDetails;
             marker.setPopupContent(`
               <h2>${itemDetails.name}</h2>
+              <small>${itemDetails.offertypes.join(", ")} für</small>
               <small>${itemDetails.products.join(", ")}</small>
               <br>
               <p>
