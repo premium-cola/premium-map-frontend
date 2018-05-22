@@ -72,34 +72,44 @@ export class SearchService {
     let abbriviation = "";
 
     // s = Sprecher/lokaler Kontakt, l = Laden
-    if (normalizedShopTypes.indexOf("3") && normalizedShopTypes.indexOf("1")) {
+    if (
+      normalizedShopTypes.indexOf("3") > -1 &&
+      normalizedShopTypes.indexOf("1") > -1
+    ) {
       abbriviation = "sl";
-      // s = Sprecher/lokaler Kontakt, l = Laden
+      // s = Sprecher/lokaler Kontakt, h = Haendler
     } else if (
-      normalizedShopTypes.indexOf("3") &&
-      normalizedShopTypes.indexOf("2")
+      normalizedShopTypes.indexOf("3") > -1 &&
+      normalizedShopTypes.indexOf("2") > -1
     ) {
       abbriviation = "sh";
+      // l = Laden, h = Haendler
+    } else if (
+      normalizedShopTypes.indexOf("1") > -1 &&
+      normalizedShopTypes.indexOf("2") > -1
+    ) {
+      abbriviation = "h";
       // l = Laden
     } else if (
-      normalizedShopTypes.indexOf("1") &&
+      normalizedShopTypes.indexOf("1") > -1 &&
       normalizedShopTypes.length === 1
     ) {
       abbriviation = "l";
       // h = Haendler
     } else if (
-      normalizedShopTypes.indexOf("2") &&
+      normalizedShopTypes.indexOf("2") > -1 &&
       normalizedShopTypes.length === 1
     ) {
       abbriviation = "h";
       // s = Sprecher/lokaler Kontakt
     } else if (
-      normalizedShopTypes.indexOf("3") &&
+      normalizedShopTypes.indexOf("3") > -1 &&
       normalizedShopTypes.length === 1
     ) {
       abbriviation = "s";
+      // o = Onlinehandel
     } else if (
-      normalizedShopTypes.indexOf("4") &&
+      normalizedShopTypes.indexOf("4") > -1 &&
       normalizedShopTypes.length === 1
     ) {
       abbriviation = "o";
