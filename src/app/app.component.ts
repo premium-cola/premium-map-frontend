@@ -232,8 +232,8 @@ export class AppComponent {
   }
 
   public clearSearchResults() {
-    // this.searchResults = [];
-    // this.debounceSearchInput.next();
+    this.searchResults = [];
+    this.debounceSearchInput.next();
   }
 }
 
