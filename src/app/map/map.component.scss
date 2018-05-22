@@ -25,8 +25,9 @@
   width: 100%;
   padding: 12px;
   display: flex;
-  justify-content: flex-end;
+  flex-wrap: wrap;
   box-sizing: border-box;
+  justify-content: space-between;
 }
 
 .topbar input[type="text"],
@@ -40,10 +41,11 @@
   border-radius: 3px;
   padding: 0 8px;
   box-sizing: border-box;
+  margin-bottom: 4px;
 }
 
 .topbar .searchArea {
-  flex-grow: 2;
+  flex-basis: 100%;
   position: relative;
 }
 
@@ -58,7 +60,6 @@
   background-color: white;
   text-decoration: none;
   line-height: 39px;
-  margin: 0 6px;
 }
 
 .topbar a.disabled {
@@ -72,6 +73,18 @@
   margin: 3px 8px 0 0;
 }
 
+/* Above 880px */
+@media only screen and (min-width: 880px) {
+  .topbar .searchArea {
+    flex-basis: initial;
+    flex-grow: 2;
+  }
+
+  .topbar a {
+    margin-left: 4px;
+  }
+}
+
 .searchbarButton {
   background: transparent;
   font-size: 20px;
@@ -83,7 +96,6 @@
 
 .searchArea .searchResults {
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.45);
-  margin-top: 3px;
 }
 
 .searchResult:hover {
