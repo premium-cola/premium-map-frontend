@@ -85,8 +85,7 @@
 
 <div class="topbar">
   <div class="searchArea">
-    <input type="text" class="searchbar" placeholder="Stadt oder Adresse eingeben..." #searchInput (blur)="clearSearchResults()"
-      (keyup)="debounceSearchInput.next(searchInput.value)">
+    <input type="text" class="searchbar" placeholder="Stadt oder Adresse eingeben..." #searchInput (keyup)="debounceSearchInput.next(searchInput.value)">
     <button class="searchbarButton" type="button">
       <i class="fa fa-search" aria-hidden="true"></i>
     </button>
