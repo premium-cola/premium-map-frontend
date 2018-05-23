@@ -47,6 +47,7 @@ export class MapComponent implements OnInit {
 
   public feedbackEmail = "";
   public feedbackText = "";
+  public feedbackSentMessage;
 
   constructor(
     private route: ActivatedRoute,
@@ -360,13 +361,18 @@ export class MapComponent implements OnInit {
     this.feedbackOpen = !this.feedbackOpen;
     if (!this.feedbackOpen) {
       window.location.hash = "";
+      this.feedbackSentMessage = null;
     }
   }
 
   public sendFeedback() {
     this.searchService
       .sendFeedback(this.selectedItem, this.feedbackEmail, this.feedbackText)
-      .subscribe();
+      .subscribe((response: { status: number; data: { msg: string } }) => {
+        this.feedbackSentMessage = response.data.msg;
+        this.feedbackEmail = "";
+        this.feedbackText = "";
+      });
   }
 
   public clearSearchResults() {
