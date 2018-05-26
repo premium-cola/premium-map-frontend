@@ -218,6 +218,12 @@ export class MapComponent implements OnInit {
                   itemDetails.id
                 }#feedback">Feedback zu diesem Eintrag?</a>
               </p>
+              <p>
+                <small>
+                  Achtung: vor dem Losfahren - anrufen und fragen ob das gewünschte Produkt vorrätig ist.
+                  Falls das Produkt nicht vertrieben wird, freuen wir uns um ein kurzes Feedback.
+                </small>
+              </p>
             `);
           });
       });
