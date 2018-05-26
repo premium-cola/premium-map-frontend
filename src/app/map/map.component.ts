@@ -220,8 +220,8 @@ export class MapComponent implements OnInit {
               </p>
               <p>
                 <small>
-                  Achtung: vor dem Losfahren - anrufen und fragen ob das gewünschte Produkt vorrätig ist.
-                  Falls das Produkt nicht vertrieben wird, freuen wir uns um ein kurzes Feedback.
+                  Achtung: vor dem Losfahren bitte anrufen und fragen ob das gewünschte Produkt verfügbar ist.
+                  Falls nicht, bitten wir um ein kurzes Feedback
                 </small>
               </p>
             `);
