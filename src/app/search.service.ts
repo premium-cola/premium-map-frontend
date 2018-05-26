@@ -33,9 +33,10 @@ export class SearchService {
   }
 
   // https://<host>/item/list?types[]=haendler&types[]=sprecher&types[]=webshop
-  public itemList(types: string[]): Observable<any[]> {
+  public itemList(types: string[], countries: string[]): Observable<any[]> {
     let url = `${this.host}${this.itemListPath}`;
     url += `?types[]=${types.join("&types[]=")}`;
+    url += `&countries[]=${countries.join("&countries[]=")}`;
     return this.http
       .get<any>(url)
       .pipe(map(itemList => itemList.data as any[]));

@@ -34,6 +34,13 @@ export class MapComponent implements OnInit {
     sprecher: false,
     webshop: false
   };
+
+  public countriesState = {
+    DE: true,
+    AT: true,
+    CH: true
+  };
+
   private itemList: any[];
 
   public debounceSearchInput: Subject<string> = new Subject();
@@ -63,16 +70,18 @@ export class MapComponent implements OnInit {
     });
     this.initalizeMap();
 
-    this.searchService.itemList(this.enabledShopTypes()).subscribe(itemList => {
-      this.itemList = itemList;
-      this.updateMarker(() => {
-        this.route.params.subscribe((params: Params) => {
-          if (params.item) {
-            this.showDetails(params.item);
-          }
+    this.searchService
+      .itemList(this.enabledShopTypes(), this.enabledCountries())
+      .subscribe(itemList => {
+        this.itemList = itemList;
+        this.updateMarker(() => {
+          this.route.params.subscribe((params: Params) => {
+            if (params.item) {
+              this.showDetails(params.item);
+            }
+          });
         });
       });
-    });
 
     this.centerPositionOnMap();
 
@@ -299,12 +308,24 @@ export class MapComponent implements OnInit {
    *
    * @param keyword A shop type that should be included or excluded from the filter list
    */
-  public async toggleFilter(keyword: string) {
+  public toggleFilter(keyword: string) {
     this.shopTypesState[keyword] = !this.shopTypesState[keyword];
-    this.searchService.itemList(this.enabledShopTypes()).subscribe(itemList => {
-      this.itemList = itemList;
-      this.updateMarker();
-    });
+    this.searchService
+      .itemList(this.enabledShopTypes(), this.enabledCountries())
+      .subscribe(itemList => {
+        this.itemList = itemList;
+        this.updateMarker();
+      });
+  }
+
+  public toggleCountry(country: string) {
+    this.countriesState[country] = !this.countriesState[country];
+    this.searchService
+      .itemList(this.enabledShopTypes(), this.enabledCountries())
+      .subscribe(itemList => {
+        this.itemList = itemList;
+        this.updateMarker();
+      });
   }
 
   /**
@@ -321,6 +342,16 @@ export class MapComponent implements OnInit {
       }
     }
     return enabledShopTypes;
+  }
+
+  public enabledCountries(): Array<string> {
+    const enabledCountries = [];
+    for (const country in this.countriesState) {
+      if (this.countriesState[country]) {
+        enabledCountries.push(country);
+      }
+    }
+    return enabledCountries;
   }
 
   /**

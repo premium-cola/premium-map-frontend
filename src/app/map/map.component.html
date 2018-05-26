@@ -133,6 +133,16 @@
   <a title="Klick zum ein oder ausblenden." (click)="toggleFilter('webshop')" [class.disabled]="shopTypesState.webshop">
     <img src="assets/img/marker/marker-icon-o.svg" />Onlinehandel
   </a>
+  <span class="group">
+    <input id="de" type="checkbox" [(ngModel)]="countriesState.DE" (click)="toggleCountry('DE')">
+    <label for="de">DE</label>
+
+    <input id="at" type="checkbox" [(ngModel)]="countriesState.AT" (click)="toggleCountry('AT')">
+    <label for="at">AT</label>
+
+    <input id="ch" type="checkbox" [(ngModel)]="countriesState.CH" (click)="toggleCountry('CH')">
+    <label for="ch">CH</label>
+  </span>
   <a (click)="toggleLegend()">?</a>
 </div>
 
