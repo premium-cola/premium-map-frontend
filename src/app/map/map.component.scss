@@ -99,6 +99,10 @@
   color: lightgray;
 }
 
+.topbar a.disabled img {
+  opacity: 0.3;
+}
+
 .topbar img {
   float: left;
   height: 32px;
