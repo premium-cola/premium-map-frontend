@@ -72,24 +72,36 @@ export class SearchService {
 
     let abbriviation = "";
 
-    // s = Sprecher/lokaler Kontakt, l = Laden
+    // s = Sprecher/lokaler Kontakt, h = Haendler
     if (
-      normalizedShopTypes.indexOf("3") > -1 &&
-      normalizedShopTypes.indexOf("1") > -1
-    ) {
-      abbriviation = "sl";
-      // s = Sprecher/lokaler Kontakt, h = Haendler
-    } else if (
       normalizedShopTypes.indexOf("3") > -1 &&
       normalizedShopTypes.indexOf("2") > -1
     ) {
       abbriviation = "sh";
+      // s = Sprecher/lokaler Kontakt, l = Laden
+    } else if (
+      normalizedShopTypes.indexOf("3") > -1 &&
+      normalizedShopTypes.indexOf("1") > -1
+    ) {
+      abbriviation = "sl";
       // l = Laden, h = Haendler
     } else if (
       normalizedShopTypes.indexOf("1") > -1 &&
       normalizedShopTypes.indexOf("2") > -1
     ) {
       abbriviation = "h";
+      // h = haendler, o = Onlinehandel
+    } else if (
+      normalizedShopTypes.indexOf("2") > -1 &&
+      normalizedShopTypes.indexOf("4") > -1
+    ) {
+      abbriviation = "h";
+      // l = laden, o = Onlinehandel
+    } else if (
+      normalizedShopTypes.indexOf("1") > -1 &&
+      normalizedShopTypes.indexOf("4") > -1
+    ) {
+      abbriviation = "l";
       // l = Laden
     } else if (
       normalizedShopTypes.indexOf("1") > -1 &&
