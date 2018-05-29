@@ -180,6 +180,11 @@ export class MapComponent implements OnInit {
     });
 
     this.map.addControl(new imprintControl());
+
+    // Hide search results on map clicked event
+    this.map.addEventListener("click", () => {
+      this.searchResults = [];
+    });
   }
 
   /**
