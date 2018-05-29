@@ -1,3 +1,6 @@
-<span>Select</span>
-
-<a *ngFor="let selectItem of getSelectItems()">{{ selectItem.name }}</a>
+<div class="wrapper">
+  <span class="select active" [class.active]="isDropdown" (click)="openDropdown()">{{ selectMessage }}</span>
+  <a [class.disabled]="!selectItems[selectItem.id].value" *ngFor="let selectItem of getSelectItems()" (click)="toggleProperty(selectItem.id)">
+    <img *ngIf="selectItems[selectItem.id].icon" src="assets/img/marker/{{ selectItems[selectItem.id].icon }}" />{{ selectItem.name }}
+  </a>
+</div>

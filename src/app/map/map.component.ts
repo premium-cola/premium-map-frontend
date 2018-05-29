@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { SearchService, SearchResult, Item } from "../search.service";
 import { Subject } from "rxjs/Subject";
 import { map, debounceTime } from "rxjs/operators";
+import { SelectItem } from "../dropdown/dropdown.component";
 
 import * as L from "leaflet";
 import "leaflet.markercluster";
@@ -21,19 +22,55 @@ export class MapComponent implements OnInit {
   );
   private defaultZoomLevel = 7;
 
-  // State of the shop types in the top bar
-  public shopTypesState = {
-    laeden: false,
-    haendler: false,
-    sprecher: false,
-    webshop: false
+  // State of the offertypes in the top bar
+  public offertypes: { [id: string]: SelectItem } = {
+    laeden: {
+      id: "laeden",
+      name: "Laden",
+      value: true,
+      icon: "marker-icon-l.svg"
+    },
+    haendler: {
+      id: "haendler",
+      name: "(Groß)Handel",
+      value: true,
+      icon: "marker-icon-h.svg"
+    },
+    sprecher: {
+      id: "sprecher",
+      name: "lokale/r Sprecher/in",
+      value: true,
+      icon: "marker-icon-s.svg"
+    },
+    webshop: {
+      id: "webshop",
+      name: "Onlinehandel",
+      value: true,
+      icon: "marker-icon-o.svg"
+    }
   };
 
-  public shopTypes = {
-    laeden: { name: "Laden", value: false },
-    haendler: { name: "(Groß)Handel", value: false },
-    sprecher: { name: "lokaler Kontakt", value: false },
-    webshop: { name: "Onlinehandel", value: false }
+  public products: { [id: string]: SelectItem } = {
+    cola: {
+      id: "cola",
+      name: "Cola",
+      value: true
+    },
+    bier: {
+      id: "bier",
+      name: "Bier",
+      value: true
+    },
+    holunder: {
+      id: "holunder",
+      name: "Holunder",
+      value: true
+    },
+    muntermate: {
+      id: "muntermate",
+      name: "Muntermate",
+      value: true
+    }
   };
 
   public countriesState = {
@@ -72,7 +109,11 @@ export class MapComponent implements OnInit {
     this.initalizeMap();
 
     this.searchService
-      .itemList(this.enabledShopTypes(), this.enabledCountries())
+      .itemList(
+        this.enabledOffertypes(),
+        this.enabledCountries(),
+        this.enabledProducts()
+      )
       .subscribe(itemList => {
         this.itemList = itemList;
         this.updateMarker(() => {
@@ -304,15 +345,15 @@ export class MapComponent implements OnInit {
   }
 
   /**
-   * Enabled or disabled a specific shop type filter. The more shop type filters are enabled
-   * the more specific the results are.
-   *
-   * @param keyword A shop type that should be included or excluded from the filter list
+   * Load and update new marker based on the selected filter
    */
-  public toggleFilter(keyword: string) {
-    this.shopTypesState[keyword] = !this.shopTypesState[keyword];
+  private filterItems(): void {
     this.searchService
-      .itemList(this.enabledShopTypes(), this.enabledCountries())
+      .itemList(
+        this.enabledOffertypes(),
+        this.enabledCountries(),
+        this.enabledProducts()
+      )
       .subscribe(itemList => {
         this.itemList = itemList;
         this.updateMarker();
@@ -322,7 +363,11 @@ export class MapComponent implements OnInit {
   public toggleCountry(country: string) {
     this.countriesState[country] = !this.countriesState[country];
     this.searchService
-      .itemList(this.enabledShopTypes(), this.enabledCountries())
+      .itemList(
+        this.enabledOffertypes(),
+        this.enabledCountries(),
+        this.enabledProducts()
+      )
       .subscribe(itemList => {
         this.itemList = itemList;
         this.updateMarker();
@@ -330,19 +375,21 @@ export class MapComponent implements OnInit {
   }
 
   /**
-   * Returns a list of strings of enabled "shop types" which are essentially categories.
+   * Returns a list of strings of enabled "offertypes" which are essentially categories.
    *
-   * All enabled shop types are shown in the UI as buttons that have a dark text color.
-   * Buttons with light text color represents disabled shop types.
+   * All enabled offertypes are shown in the UI as buttons that have a dark text color.
+   * Buttons with light text color represents disabled offertypes.
    */
-  public enabledShopTypes(): Array<string> {
-    const enabledShopTypes = [];
-    for (const shopType in this.shopTypesState) {
-      if (!this.shopTypesState[shopType]) {
-        enabledShopTypes.push(shopType);
-      }
-    }
-    return enabledShopTypes;
+  public enabledOffertypes(): string[] {
+    return Object.keys(this.offertypes).filter(id => {
+      return this.offertypes[id].value;
+    });
+  }
+
+  public enabledProducts(): string[] {
+    return Object.keys(this.products).filter(id => {
+      return this.products[id].value;
+    });
   }
 
   public enabledCountries(): Array<string> {
@@ -379,6 +426,16 @@ export class MapComponent implements OnInit {
     });
     // this.map.panTo(marker.getLatLng(), {});
     marker.openPopup();
+  }
+
+  public offertypeFilterChanged(offertypeFilterItem: SelectItem) {
+    this.offertypes[offertypeFilterItem.id].value = offertypeFilterItem.value;
+    this.filterItems();
+  }
+
+  public productsFilterChanged(productsFilterItem: SelectItem) {
+    this.products[productsFilterItem.id].value = productsFilterItem.value;
+    this.filterItems();
   }
 
   /**

@@ -121,18 +121,7 @@
       </div>
     </div>
   </div>
-  <a title="Klick zum ein oder ausblenden." (click)="toggleFilter('laeden')" [class.disabled]="shopTypesState.laeden">
-    <img src="assets/img/marker/marker-icon-l.svg" />Laden
-  </a>
-  <a title="Klick zum ein oder ausblenden." (click)="toggleFilter('haendler')" [class.disabled]="shopTypesState.haendler">
-    <img src="assets/img/marker/marker-icon-h.svg" />(Groß)Handel
-  </a>
-  <a title="Klick zum ein oder ausblenden." (click)="toggleFilter('sprecher')" [class.disabled]="shopTypesState.sprecher">
-    <img src="assets/img/marker/marker-icon-s.svg" />lokaler Kontakt
-  </a>
-  <a title="Klick zum ein oder ausblenden." (click)="toggleFilter('webshop')" [class.disabled]="shopTypesState.webshop">
-    <img src="assets/img/marker/marker-icon-o.svg" />Onlinehandel
-  </a>
+
   <span class="group">
     <input id="de" type="checkbox" [(ngModel)]="countriesState.DE" (click)="toggleCountry('DE')">
     <label for="de">DE</label>
@@ -144,7 +133,10 @@
     <label for="ch">CH</label>
   </span>
 
-  <app-dropdown-component [selectItems]="shopTypes"></app-dropdown-component>
+  <app-dropdown-component selectMessage="Kontakt-Art" [selectItems]="offertypes" (selectItemValueChanged)="offertypeFilterChanged($event)"></app-dropdown-component>
+
+  <app-dropdown-component selectMessage="Produkte" [selectItems]="products" (selectItemValueChanged)="productsFilterChanged($event)"></app-dropdown-component>
+
   <a (click)="toggleLegend()">?</a>
 </div>
 
