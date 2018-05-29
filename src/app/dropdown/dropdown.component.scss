@@ -1,0 +1,22 @@
+.topbar a {
+  user-select: none;
+  cursor: pointer;
+  background-color: white;
+  text-decoration: none;
+  line-height: 39px;
+}
+
+.topbar a.disabled {
+  color: lightgray;
+}
+
+.topbar a.disabled img {
+  opacity: 0.3;
+}
+
+.topbar img {
+  float: left;
+  height: 32px;
+  width: 28px;
+  margin: 3px 8px 0 0;
+}

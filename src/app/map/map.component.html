@@ -143,6 +143,8 @@
     <input id="ch" type="checkbox" [(ngModel)]="countriesState.CH" (click)="toggleCountry('CH')">
     <label for="ch">CH</label>
   </span>
+
+  <app-dropdown-component [selectItems]="shopTypes"></app-dropdown-component>
   <a (click)="toggleLegend()">?</a>
 </div>
 

@@ -7,12 +7,6 @@ import * as L from "leaflet";
 import "leaflet.markercluster";
 import { ActivatedRoute, Router, Params } from "@angular/router";
 
-/**
- * TODO:
- * - Make top bar responsive
- * - Remember active and inactive filter in localStorage
- * - Filter icon should be visually disabled if the filter itself is disabled
- */
 @Component({
   selector: "app-map",
   templateUrl: "./map.component.html",
@@ -33,6 +27,13 @@ export class MapComponent implements OnInit {
     haendler: false,
     sprecher: false,
     webshop: false
+  };
+
+  public shopTypes = {
+    laeden: { name: "Laden", value: false },
+    haendler: { name: "(Groß)Handel", value: false },
+    sprecher: { name: "lokaler Kontakt", value: false },
+    webshop: { name: "Onlinehandel", value: false }
   };
 
   public countriesState = {

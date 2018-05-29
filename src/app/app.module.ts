@@ -10,9 +10,10 @@ import { SearchService } from "./search.service";
 import { PopupComponent } from "./popup/popup.component";
 import { HttpClientModule } from "@angular/common/http";
 import { MapComponent } from "./map/map.component";
+import { DropdownComponent } from "./dropdown/dropdown.component";
 
 @NgModule({
-  declarations: [AppComponent, PopupComponent, MapComponent],
+  declarations: [AppComponent, PopupComponent, MapComponent, DropdownComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
