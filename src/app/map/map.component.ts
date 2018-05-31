@@ -229,7 +229,7 @@ export class MapComponent implements OnInit {
         container.style.fontSize = "20px";
         container.style.cursor = "pointer";
         container.onclick = () => {
-          window.location.href = "/list";
+          this.router.navigate(["list"]);
         };
         return container;
       }
