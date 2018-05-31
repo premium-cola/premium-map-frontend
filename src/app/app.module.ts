@@ -11,9 +11,16 @@ import { PopupComponent } from "./popup/popup.component";
 import { HttpClientModule } from "@angular/common/http";
 import { MapComponent } from "./map/map.component";
 import { DropdownComponent } from "./dropdown/dropdown.component";
+import { ListComponent } from "./list/list.component";
 
 @NgModule({
-  declarations: [AppComponent, PopupComponent, MapComponent, DropdownComponent],
+  declarations: [
+    AppComponent,
+    PopupComponent,
+    MapComponent,
+    DropdownComponent,
+    ListComponent
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -22,6 +29,10 @@ import { DropdownComponent } from "./dropdown/dropdown.component";
       {
         path: "",
         component: MapComponent
+      },
+      {
+        path: "list",
+        component: ListComponent
       },
       {
         path: ":item",

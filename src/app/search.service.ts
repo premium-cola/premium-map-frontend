@@ -9,6 +9,7 @@ export class SearchService {
   private host = "https://cola.gacrux.uberspace.de";
   private searchPath = "/search";
   private itemListPath = "/item/list";
+  private itemAllPath = "/item/all";
   private itemDetailsPath = "/item";
   private feedbackPath = "/feedback";
 
@@ -42,6 +43,13 @@ export class SearchService {
     url += `?types[]=${types.join("&types[]=")}`;
     url += `&countries[]=${countries.join("&countries[]=")}`;
     url += `&products[]=${products.join("&products[]=")}`;
+    return this.http
+      .get<any>(url)
+      .pipe(map(itemList => itemList.data as any[]));
+  }
+
+  public itemAll() {
+    const url = `${this.host}${this.itemAllPath}`;
     return this.http
       .get<any>(url)
       .pipe(map(itemList => itemList.data as any[]));
