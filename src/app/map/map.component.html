@@ -123,14 +123,16 @@
   </div>
 
   <span class="group">
-    <input id="de" type="checkbox" [(ngModel)]="countriesState.DE" (click)="toggleCountry('DE')">
-    <label for="de">DE</label>
+    <!-- <input id="de" type="checkbox" [(ngModel)]="countriesState.DE" (click)="toggleCountry('DE')"> -->
+    <div [class.active]="countriesState.DE" (click)="toggleCountry('DE')">DE</div>
+    <div [class.active]="countriesState.AT" (click)="toggleCountry('AT')">AT</div>
+    <div [class.active]="countriesState.CH" (click)="toggleCountry('CH')">CH</div>
 
-    <input id="at" type="checkbox" [(ngModel)]="countriesState.AT" (click)="toggleCountry('AT')">
+    <!-- <input id="at" type="checkbox" [(ngModel)]="countriesState.AT" (click)="toggleCountry('AT')">
     <label for="at">AT</label>
 
     <input id="ch" type="checkbox" [(ngModel)]="countriesState.CH" (click)="toggleCountry('CH')">
-    <label for="ch">CH</label>
+    <label for="ch">CH</label> -->
   </span>
 
   <app-dropdown-component selectMessage="Kontakt-Art" [selectItems]="offertypes" (selectItemValueChanged)="offertypeFilterChanged($event)"></app-dropdown-component>

@@ -366,6 +366,7 @@ export class MapComponent implements OnInit {
   }
 
   public toggleCountry(country: string) {
+    console.log("asdasdad");
     this.countriesState[country] = !this.countriesState[country];
     this.searchService
       .itemList(
