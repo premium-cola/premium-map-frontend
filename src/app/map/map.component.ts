@@ -61,9 +61,9 @@ export class MapComponent implements OnInit {
       name: 'Bier',
       value: true
     },
-    holunder: {
-      id: 'holunder',
-      name: 'Holunder',
+    frohlunder: {
+      id: 'frohlunder',
+      name: 'Frohlunder',
       value: true
     },
     muntermate: {
@@ -306,6 +306,15 @@ export class MapComponent implements OnInit {
               </p>
               <p>
                 ${
+                  itemDetails.web
+                    ? '<i class="fa fa-globe" aria-hidden="true"></i> <a href="' +
+                      itemDetails.web +
+                      '">' +
+                      itemDetails.web +
+                      '</a>'
+                    : ''
+                }<br>
+                ${
                   itemDetails.email
                     ? '<i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:' +
                       itemDetails.email +
@@ -424,7 +433,6 @@ export class MapComponent implements OnInit {
   }
 
   public toggleCountry(country: string) {
-    console.log('asdasdad');
     this.countriesState[country] = !this.countriesState[country];
     this.searchService
       .itemList(

@@ -1,29 +1,35 @@
 <app-popup *ngIf="imprintOpen" (close)="toggleImprint()">
   <h1>Impressum</h1>
   <p>
-    PREMIUM
-    <br> Uwe Lübbermann
-    <br> Bärenallee 40
-    <br> 22041 Hamburg
-    <br>
+    PREMIUM <br />
+    Uwe Lübbermann <br />
+    Bärenallee 40 <br />
+    22041 Hamburg <br />
     <small>bei Paketzusendung bitte Rücksprache, bin viel unterwegs</small>
   </p>
   <p>
-    Mail:
-    <a href="mailto:uwe@premium-cola.de">uwe@premium-cola.de</a>
-    (
-    <a target="_blank" href="https://www.premium-cola.de/downloads/pgp/uwe@premium-cola.de-0xC67412EB-pub.asc">PGP-Key</a>
+    Mail: <a href="mailto:uwe@premium-cola.de">uwe@premium-cola.de</a> (
+    <a
+      target="_blank"
+      href="https://www.premium-cola.de/downloads/pgp/uwe@premium-cola.de-0xC67412EB-pub.asc"
+      >PGP-Key</a
+    >
     ) oder übers
-    <a target="_blank" href="https://www.premium-cola.de/component/contact/47-kontakt/7-premium-kontakt">Mail-Formular</a>
-    <br> Twitter:
+    <a
+      target="_blank"
+      href="https://www.premium-cola.de/component/contact/47-kontakt/7-premium-kontakt"
+      >Mail-Formular</a
+    >
+    <br />
+    Twitter:
     <a target="_blank" href="https://twitter.com/luebbermann">@luebbermann</a>
-    <br> Fax: +49 (0)40 35 67 61 52
-    <br> Telefon: +49 (0)172 86 58 588 (telefoniert eher ungern)
-    <br>
+    <br />
+    Fax: +49 (0)40 35 67 61 52 <br />
+    Telefon: +49 (0)172 86 58 588 (telefoniert eher ungern) <br />
   </p>
   <p>
-    USt-IdNr: DE243037244
-    <br> Inhaltlich verantwortlich nach § 55 Abs. 2 RStV: Uwe Lübbermann
+    USt-IdNr: DE243037244 <br />
+    Inhaltlich verantwortlich nach § 55 Abs. 2 RStV: Uwe Lübbermann
   </p>
   <p>
     Bio-zertifiziert für Bier und Limonaden, Öko-Kontrollstelle DE-ÖKO-006 via
@@ -31,92 +37,118 @@
   </p>
   <p>
     Map data ©
-    <a target="_blank" href="https://openstreetmap.org">OpenStreetMap</a> contributors
-    <a target="_blank" href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>
-    <br>
-    <a target="_blank" title="A JS library for interactive maps" href="https://leafletjs.com">Leaflet</a> A JS library for interactive maps
+    <a target="_blank" href="https://openstreetmap.org">OpenStreetMap</a>
+    contributors
+    <a target="_blank" href="https://creativecommons.org/licenses/by-sa/2.0/"
+      >CC-BY-SA</a
+    >
+    <br />
+    <a
+      target="_blank"
+      title="A JS library for interactive maps"
+      href="https://leafletjs.com"
+      >Leaflet</a
+    >
+    A JS library for interactive maps
   </p>
 </app-popup>
 
 <app-popup *ngIf="legendOpen" (close)="toggleLegend()">
   <h1>Legende</h1>
   <div class="info">
-    Einzelne Marker-Icon Typen können durch einen Klick auf das Icon in der Toolbar aus oder eingeblendet werden Standardmäßig
-    werden alle Marker-Icons eingeblendet
+    Einzelne Marker-Icon Typen können durch einen Klick auf das Icon in der
+    Toolbar aus oder eingeblendet werden Standardmäßig werden alle Marker-Icons
+    eingeblendet
   </div>
 
-  <h2>
-    <img src="assets/img/marker/marker-icon-l.svg" />
-    <span>Laden</span>
-  </h2>
+  <h2><img src="assets/img/marker/marker-icon-l.svg" /> <span>Laden</span></h2>
   <p>
-    Cafe/Club/Bar/Restaurant/Designladen/Hackspace/Kulturzentrum/etc. meist mit direktem Konsum vor Ort. Bei Interesse bitte
-    direkt beim Laden nachfragen, ob man Flaschen/Kisten zum mitnehmen kaufen kann (wie zb. bei einem Kiosk).
+    Cafe/Club/Bar/Restaurant/Designladen/Hackspace/Kulturzentrum/etc. meist mit
+    direktem Konsum vor Ort. Bei Interesse bitte direkt beim Laden nachfragen,
+    ob man Flaschen/Kisten zum mitnehmen kaufen kann (wie zb. bei einem Kiosk).
   </p>
 
-  <hr>
+  <hr />
   <h2>
-    <img src="assets/img/marker/marker-icon-h.svg" />
-    <span>(Groß)Handel</span>
+    <img src="assets/img/marker/marker-icon-h.svg" /> <span>(Groß)Handel</span>
   </h2>
   <p>
-    meist Getränkemarkt und Großhandel, kaufen von Premium-Kisten/Paletten für Privatpersonen und für Läden möglich
+    meist Getränkemarkt und Großhandel, kaufen von Premium-Kisten/Paletten für
+    Privatpersonen und für Läden möglich
   </p>
 
-  <hr>
+  <hr />
   <h2>
     <img src="assets/img/marker/marker-icon-s.svg" />
     <span>Lokaler Kontakt</span>
   </h2>
   <p>
-    die Premium-"Sprecherinnen" vor Ort, welche sich um Handel und Läden kümmern, und für lokale Fragen jeder Art zur Verfügung
-    stehen.
+    die Premium-"Sprecherinnen" vor Ort, welche sich um Handel und Läden
+    kümmern, und für lokale Fragen jeder Art zur Verfügung stehen.
   </p>
 
-  <hr>
+  <hr />
   <h2>
-    <img src="assets/img/marker/marker-icon-l.svg" />
-    <span>Onlinehandel</span>
+    <img src="assets/img/marker/marker-icon-l.svg" /> <span>Onlinehandel</span>
   </h2>
   <p>
-    Eine Bestellung von Premium-Getränken über den Versandweg ist der un-ökologischste Weg an Premium zu kommen. Trotzdem wollen
-    wir dies als Option anbieten, denn in manchen Regionen ist das nicht zu umgehen ohne auf dem Trockenen zu sitzen. Bitte
-    wähle den regional nächstgelegenen Onlinehandel. Der Gesamtpreis einer Bestellung (Produkt + Versand) ist üblicherweise
-    bei jedem Anbieter gleich, denn diese orientieren sich an einer unverbindlichen und ökologischen Preisempfehlung.
+    Eine Bestellung von Premium-Getränken über den Versandweg ist der
+    un-ökologischste Weg an Premium zu kommen. Trotzdem wollen wir dies als
+    Option anbieten, denn in manchen Regionen ist das nicht zu umgehen ohne auf
+    dem Trockenen zu sitzen. Bitte wähle den regional nächstgelegenen
+    Onlinehandel. Der Gesamtpreis einer Bestellung (Produkt + Versand) ist
+    üblicherweise bei jedem Anbieter gleich, denn diese orientieren sich an
+    einer unverbindlichen und ökologischen Preisempfehlung.
   </p>
 </app-popup>
 
 <app-popup *ngIf="feedbackOpen && selectedItem" (close)="toggleFeedback()">
-  <h1>Feedback zu {{selectedItem.name}}</h1>
+  <h1>Feedback zu {{ selectedItem.name }}</h1>
   <div *ngIf="!feedbackSentMessage">
     <div class="info">
       Ist Dir ein Fehler aufgefallen? Gib uns gerne bescheid...
     </div>
-    <input [(ngModel)]="feedbackEmail" type="email" placeholder="Deine Mailadresse">
-    <textarea [(ngModel)]="feedbackText" placeholder="Deine Nachricht"></textarea>
+    <input
+      [(ngModel)]="feedbackEmail"
+      type="email"
+      placeholder="Deine Mailadresse"
+    />
+    <textarea
+      [(ngModel)]="feedbackText"
+      placeholder="Deine Nachricht"
+    ></textarea>
     <button (click)="sendFeedback()">Absenden</button>
   </div>
   <div *ngIf="feedbackSentMessage">
-    <div class="info">
-      {{ feedbackSentMessage }}
-    </div>
+    <div class="info">{{ feedbackSentMessage }}</div>
   </div>
 </app-popup>
 
 <div class="topbar">
   <div class="searchArea">
-    <input type="text" class="searchbar" placeholder="Stadt oder Adresse eingeben..." #searchInput (keyup)="debounceSearchInput.next(searchInput.value)">
+    <input
+      type="text"
+      class="searchbar"
+      placeholder="Laden, Händler/in, Sprecher/in oder Onlinehandel eingeben..."
+      #searchInput
+      (keyup)="debounceSearchInput.next(searchInput.value)"
+    />
     <button class="searchbarButton" type="button">
       <i class="fa fa-search" aria-hidden="true"></i>
     </button>
     <div class="searchResults">
-      <div class="searchResult" *ngFor="let searchResult of searchResults | slice:0:3" (click)="router.navigate([searchResult.id])">
-        <img src="assets/img/marker/{{ searchService.mapShopTypesToImage(['1']) }}">
+      <div
+        class="searchResult"
+        *ngFor="let searchResult of (searchResults | slice: 0:3)"
+        (click)="router.navigate([searchResult.id])"
+      >
+        <img
+          src="assets/img/marker/{{ searchService.mapShopTypesToImage(['1']) }}"
+        />
         <div>
-          <h3>
-            {{ searchResult.name }}
-          </h3>
-          {{ searchResult.street }}, {{ searchResult.zip }} {{ searchResult.city }}
+          <h3>{{ searchResult.name }}</h3>
+          {{ searchResult.street }}, {{ searchResult.zip }}
+          {{ searchResult.city }}
         </div>
       </div>
     </div>
@@ -124,9 +156,15 @@
 
   <span class="group">
     <!-- <input id="de" type="checkbox" [(ngModel)]="countriesState.DE" (click)="toggleCountry('DE')"> -->
-    <div [class.active]="countriesState.DE" (click)="toggleCountry('DE')">DE</div>
-    <div [class.active]="countriesState.AT" (click)="toggleCountry('AT')">AT</div>
-    <div [class.active]="countriesState.CH" (click)="toggleCountry('CH')">CH</div>
+    <div [class.active]="countriesState.DE" (click)="toggleCountry('DE')">
+      DE
+    </div>
+    <div [class.active]="countriesState.AT" (click)="toggleCountry('AT')">
+      AT
+    </div>
+    <div [class.active]="countriesState.CH" (click)="toggleCountry('CH')">
+      CH
+    </div>
 
     <!-- <input id="at" type="checkbox" [(ngModel)]="countriesState.AT" (click)="toggleCountry('AT')">
     <label for="at">AT</label>
@@ -135,9 +173,17 @@
     <label for="ch">CH</label> -->
   </span>
 
-  <app-dropdown-component selectMessage="Kontakt-Art" [selectItems]="offertypes" (selectItemValueChanged)="offertypeFilterChanged($event)"></app-dropdown-component>
+  <app-dropdown-component
+    selectMessage="Kontakt-Art"
+    [selectItems]="offertypes"
+    (selectItemValueChanged)="offertypeFilterChanged($event)"
+  ></app-dropdown-component>
 
-  <app-dropdown-component selectMessage="Produkte" [selectItems]="products" (selectItemValueChanged)="productsFilterChanged($event)"></app-dropdown-component>
+  <app-dropdown-component
+    selectMessage="Produkte"
+    [selectItems]="products"
+    (selectItemValueChanged)="productsFilterChanged($event)"
+  ></app-dropdown-component>
 
   <a (click)="toggleLegend()">?</a>
 </div>
