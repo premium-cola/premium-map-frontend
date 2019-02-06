@@ -30,10 +30,10 @@ import { ListComponent } from './list/list.component';
         path: '',
         component: MapComponent
       },
-      {
-        path: 'list',
-        component: ListComponent
-      },
+      // {
+      //   path: 'list',
+      //   component: ListComponent
+      // },
       {
         path: ':item',
         component: MapComponent

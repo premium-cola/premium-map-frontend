@@ -234,7 +234,7 @@ export class MapComponent implements OnInit {
         return container;
       }
     });
-    this.map.addControl(new listViewControl());
+    // this.map.addControl(new listViewControl());
 
     // Hide search results on map clicked event
     this.map.addEventListener('click', () => {
