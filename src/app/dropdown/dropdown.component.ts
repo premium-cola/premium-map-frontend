@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from "@angular/core";
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 export interface SelectItem {
   id: string;
@@ -8,9 +8,9 @@ export interface SelectItem {
 }
 
 @Component({
-  selector: "app-dropdown-component",
-  templateUrl: "./dropdown.component.html",
-  styleUrls: ["./dropdown.component.scss"]
+  selector: 'app-dropdown-component',
+  templateUrl: './dropdown.component.html',
+  styleUrls: ['./dropdown.component.scss']
 })
 export class DropdownComponent {
   @Output() selectItemValueChanged = new EventEmitter<SelectItem>();

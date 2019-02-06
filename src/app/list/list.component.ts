@@ -1,17 +1,12 @@
-import { Component, OnInit } from "@angular/core";
-import { SearchService, SearchResult, Item } from "../search.service";
-import { Subject } from "rxjs/Subject";
-import { map, debounceTime } from "rxjs/operators";
-import { SelectItem } from "../dropdown/dropdown.component";
+import { Component, OnInit } from '@angular/core';
+import { SearchService } from '../search.service';
 
-import * as L from "leaflet";
-import "leaflet.markercluster";
-import { ActivatedRoute, Router, Params } from "@angular/router";
+import 'leaflet.markercluster';
 
 @Component({
-  selector: "app-list",
-  templateUrl: "./list.component.html",
-  styleUrls: ["./list.component.scss"]
+  selector: 'app-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
   public itemList: any[];

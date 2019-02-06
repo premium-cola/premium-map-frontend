@@ -1,17 +1,17 @@
-import { Injectable, keyframes } from "@angular/core";
-import { HttpClient, HttpResponse, HttpParams } from "@angular/common/http";
-import { map } from "rxjs/operators";
-import { Observable } from "rxjs/Observable";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class SearchService {
   // private host = "http://localhost:8085";
-  private host = "https://cola.gacrux.uberspace.de";
-  private searchPath = "/search";
-  private itemListPath = "/item/list";
-  private itemAllPath = "/item/all";
-  private itemDetailsPath = "/item";
-  private feedbackPath = "/feedback";
+  private host = 'https://cola.gacrux.uberspace.de';
+  private searchPath = '/search';
+  private itemListPath = '/item/list';
+  private itemAllPath = '/item/all';
+  private itemDetailsPath = '/item';
+  private feedbackPath = '/feedback';
 
   constructor(private http: HttpClient) {}
 
@@ -20,7 +20,7 @@ export class SearchService {
    */
   public search(keyword: string): Observable<SearchResult[]> {
     let url = `${this.host}${this.searchPath}`;
-    if (keyword !== "") {
+    if (keyword !== '') {
       url += `/${keyword}`;
     }
     return this.http
@@ -40,9 +40,9 @@ export class SearchService {
     products: string[]
   ): Observable<any[]> {
     let url = `${this.host}${this.itemListPath}`;
-    url += `?types[]=${types.join("&types[]=")}`;
-    url += `&countries[]=${countries.join("&countries[]=")}`;
-    url += `&products[]=${products.join("&products[]=")}`;
+    url += `?types[]=${types.join('&types[]=')}`;
+    url += `&countries[]=${countries.join('&countries[]=')}`;
+    url += `&products[]=${products.join('&products[]=')}`;
     return this.http
       .get<any>(url)
       .pipe(map(itemList => itemList.data as any[]));
@@ -62,12 +62,12 @@ export class SearchService {
   ): Observable<any> {
     const url = `${this.host}${this.feedbackPath}`;
     const body = new URLSearchParams();
-    body.set("email", email);
-    body.set("feedback", feedback);
-    body.set("id", `${item.id}`);
-    body.set("zip", item.zip);
+    body.set('email', email);
+    body.set('feedback', feedback);
+    body.set('id', `${item.id}`);
+    body.set('zip', item.zip);
     return this.http.post(url, body.toString(), {
-      headers: { "Content-Type": "application/x-www-form-urlencoded" }
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     });
   }
 
@@ -83,65 +83,65 @@ export class SearchService {
       normalizedShopTypes.push(`${item}`);
     });
 
-    let abbriviation = "";
+    let abbriviation = '';
 
     // s = Sprecher/lokaler Kontakt, h = Haendler
     if (
-      normalizedShopTypes.indexOf("3") > -1 &&
-      normalizedShopTypes.indexOf("2") > -1
+      normalizedShopTypes.indexOf('3') > -1 &&
+      normalizedShopTypes.indexOf('2') > -1
     ) {
-      abbriviation = "sh";
+      abbriviation = 'sh';
       // s = Sprecher/lokaler Kontakt, l = Laden
     } else if (
-      normalizedShopTypes.indexOf("3") > -1 &&
-      normalizedShopTypes.indexOf("1") > -1
+      normalizedShopTypes.indexOf('3') > -1 &&
+      normalizedShopTypes.indexOf('1') > -1
     ) {
-      abbriviation = "sl";
+      abbriviation = 'sl';
       // l = Laden, h = Haendler
     } else if (
-      normalizedShopTypes.indexOf("1") > -1 &&
-      normalizedShopTypes.indexOf("2") > -1
+      normalizedShopTypes.indexOf('1') > -1 &&
+      normalizedShopTypes.indexOf('2') > -1
     ) {
-      abbriviation = "h";
+      abbriviation = 'h';
       // h = haendler, o = Onlinehandel
     } else if (
-      normalizedShopTypes.indexOf("2") > -1 &&
-      normalizedShopTypes.indexOf("4") > -1
+      normalizedShopTypes.indexOf('2') > -1 &&
+      normalizedShopTypes.indexOf('4') > -1
     ) {
-      abbriviation = "h";
+      abbriviation = 'h';
       // l = laden, o = Onlinehandel
     } else if (
-      normalizedShopTypes.indexOf("1") > -1 &&
-      normalizedShopTypes.indexOf("4") > -1
+      normalizedShopTypes.indexOf('1') > -1 &&
+      normalizedShopTypes.indexOf('4') > -1
     ) {
-      abbriviation = "l";
+      abbriviation = 'l';
       // l = Laden
     } else if (
-      normalizedShopTypes.indexOf("1") > -1 &&
+      normalizedShopTypes.indexOf('1') > -1 &&
       normalizedShopTypes.length === 1
     ) {
-      abbriviation = "l";
+      abbriviation = 'l';
       // h = Haendler
     } else if (
-      normalizedShopTypes.indexOf("2") > -1 &&
+      normalizedShopTypes.indexOf('2') > -1 &&
       normalizedShopTypes.length === 1
     ) {
-      abbriviation = "h";
+      abbriviation = 'h';
       // s = Sprecher/lokaler Kontakt
     } else if (
-      normalizedShopTypes.indexOf("3") > -1 &&
+      normalizedShopTypes.indexOf('3') > -1 &&
       normalizedShopTypes.length === 1
     ) {
-      abbriviation = "s";
+      abbriviation = 's';
       // o = Onlinehandel
     } else if (
-      normalizedShopTypes.indexOf("4") > -1 &&
+      normalizedShopTypes.indexOf('4') > -1 &&
       normalizedShopTypes.length === 1
     ) {
-      abbriviation = "o";
+      abbriviation = 'o';
     }
 
-    return `${["marker-icon", abbriviation].join("-")}.svg`;
+    return `${['marker-icon', abbriviation].join('-')}.svg`;
   }
 }
 
