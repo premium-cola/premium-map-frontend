@@ -274,9 +274,12 @@ export class MapComponent implements OnInit {
         })
       });
 
-      marker.bindPopup(() => {
-        return 'Lade Daten...';
-      });
+      marker.bindPopup(
+        () => {
+          return 'Lade Daten...';
+        },
+        { autoPanPadding: new L.Point(65, 65) }
+      );
 
       marker.off('click');
       marker.addEventListener('click', (event: L.LeafletEvent) => {
@@ -294,7 +297,7 @@ export class MapComponent implements OnInit {
           .itemDetails(marker.getId())
           .subscribe((itemDetails: Item) => {
             this.selectedItem = itemDetails;
-            marker.bindPopup(
+            marker.setPopupContent(
               `
               <h2>${itemDetails.name}</h2>
               <small>${itemDetails.offertypes.join(', ')} für</small>
@@ -345,12 +348,11 @@ export class MapComponent implements OnInit {
                   Falls nicht, bitten wir um ein kurzes Feedback
                 </small>
               </p>
-            `,
-              { autoPanPadding: new L.Point(65, 65) }
+            `
             );
           });
       });
-
+      //
       marker.addTo(this.markerClusterGroup);
     });
 
