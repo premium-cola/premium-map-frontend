@@ -38,7 +38,7 @@ export class MapComponent implements OnInit {
     },
     sprecher: {
       id: 'sprecher',
-      name: 'lokale/r Sprecher/in',
+      name: 'lokaler Kontakt',
       value: true,
       icon: 'marker-icon-s.svg'
     },
