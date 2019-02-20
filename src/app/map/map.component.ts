@@ -310,7 +310,7 @@ export class MapComponent implements OnInit {
               <p>
                 ${
                   itemDetails.web
-                    ? '<i class="fa fa-globe" aria-hidden="true"></i> <a href="' +
+                    ? '<i class="fa fa-globe" aria-hidden="true"></i> <a target="_blank" href="' +
                       itemDetails.web +
                       '">' +
                       itemDetails.web +
