@@ -494,11 +494,7 @@ export class MapComponent implements OnInit {
         return itemId === layer.getId();
       });
     const marker = targetMarker as CustomMarker;
-    const bounds = L.latLngBounds([marker.getLatLng()]);
-    this.map.fitBounds(bounds, {
-      maxZoom: 18
-    });
-    // this.map.panTo(marker.getLatLng(), {});
+    this.map.panTo(marker.getLatLng(), {});
     marker.openPopup();
   }
 
