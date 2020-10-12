@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class SearchService {
   // private host = "http://localhost:8085";
-  private host = 'https://cola.gacrux.uberspace.de';
+  private host = 'http://api.landkarte.premium-cola.de';
   private searchPath = '/search';
   private itemListPath = '/item/list';
   private itemAllPath = '/item/all';
