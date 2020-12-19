@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 export interface SelectItem {
   id: string;
@@ -8,14 +8,16 @@ export interface SelectItem {
 }
 
 @Component({
-  selector: 'app-dropdown-component',
+  selector: 'app-dropdown',
   templateUrl: './dropdown.component.html',
-  styleUrls: ['./dropdown.component.scss']
+  styleUrls: ['./dropdown.component.css']
 })
-export class DropdownComponent {
+export class DropdownComponent implements OnInit {
   @Output() selectItemValueChanged = new EventEmitter<SelectItem>();
 
-  @Input() selectMessage;
+  @Input()
+  public selectMessage: string;
+
   @Input()
   public selectItems: {
     [id: string]: SelectItem;
@@ -34,4 +36,13 @@ export class DropdownComponent {
     this.selectItems[id].value = !this.selectItems[id].value;
     this.selectItemValueChanged.emit(this.selectItems[id]);
   }
+
+  constructor() {
+    this.selectMessage = "";
+    this.selectItems = {};
+  }
+
+  ngOnInit(): void {
+  }
+
 }

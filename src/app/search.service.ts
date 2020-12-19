@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class SearchService {
@@ -78,7 +78,7 @@ export class SearchService {
    * @param shopTypes A list of shop types e.g.: ["3", "2"]
    */
   public mapShopTypesToImage(shopTypes: Array<string>) {
-    const normalizedShopTypes = [];
+    const normalizedShopTypes: string[] = [];
     shopTypes.map(item => {
       normalizedShopTypes.push(`${item}`);
     });

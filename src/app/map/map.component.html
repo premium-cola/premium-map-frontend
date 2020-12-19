@@ -1,4 +1,4 @@
-<app-popup *ngIf="imprintOpen" (close)="toggleImprint()">
+<app-popup class="popup" *ngIf="imprintOpen" (close)="toggleImprint()">
   <h1>Impressum</h1>
   <p>
     Bitte kontaktieren Sie einer der für Ihren Bereich zuständigen
@@ -6,9 +6,7 @@
     hier:
   </p>
   <p>
-    <a href="https://www.premium-cola.de/kontakte"
-      >https://www.premium-cola.de/kontakte</a
-    >
+    <a href="https://www.premium-cola.de/kontakte">https://www.premium-cola.de/kontakte</a>
   </p>
   <p>
     PREMIUM <br />
@@ -19,17 +17,11 @@
   </p>
   <p>
     Mail: <a href="mailto:uwe@premium-cola.de">uwe@premium-cola.de</a> (
-    <a
-      target="_blank"
-      href="https://www.premium-cola.de/downloads/pgp/uwe@premium-cola.de-0xC67412EB-pub.asc"
-      >PGP-Key</a
-    >
+    <a target="_blank"
+      href="https://www.premium-cola.de/downloads/pgp/uwe@premium-cola.de-0xC67412EB-pub.asc">PGP-Key</a>
     ) oder übers
-    <a
-      target="_blank"
-      href="https://www.premium-cola.de/component/contact/47-kontakt/7-premium-kontakt"
-      >Mail-Formular</a
-    >
+    <a target="_blank"
+      href="https://www.premium-cola.de/component/contact/47-kontakt/7-premium-kontakt">Mail-Formular</a>
     <br />
     Twitter:
     <a target="_blank" href="https://twitter.com/luebbermann">@luebbermann</a>
@@ -49,21 +41,14 @@
     Map data ©
     <a target="_blank" href="https://openstreetmap.org">OpenStreetMap</a>
     contributors
-    <a target="_blank" href="https://creativecommons.org/licenses/by-sa/2.0/"
-      >CC-BY-SA</a
-    >
+    <a target="_blank" href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>
     <br />
-    <a
-      target="_blank"
-      title="A JS library for interactive maps"
-      href="https://leafletjs.com"
-      >Leaflet</a
-    >
+    <a target="_blank" title="A JS library for interactive maps" href="https://leafletjs.com">Leaflet</a>
     A JS library for interactive maps
   </p>
 </app-popup>
 
-<app-popup *ngIf="legendOpen" (close)="toggleLegend()">
+<app-popup class="popup" *ngIf="legendOpen" (close)="toggleLegend()">
   <h1>Legende</h1>
   <div class="info">
     Einzelne Marker-Icon Typen können durch einen Klick auf das Icon in der
@@ -71,7 +56,7 @@
     eingeblendet
   </div>
 
-  <h2><img src="assets/img/marker/marker-icon-l.svg" /> <span>Laden</span></h2>
+  <h2><img src="assets/img/marker/marker-icon-l.svg" />&nbsp;<span>Laden</span></h2>
   <p>
     Cafe/Club/Bar/Restaurant/Designladen/Hackspace/Kulturzentrum/etc. meist mit
     direktem Konsum vor Ort. Bei Interesse bitte direkt beim Laden nachfragen,
@@ -80,7 +65,7 @@
 
   <hr />
   <h2>
-    <img src="assets/img/marker/marker-icon-h.svg" /> <span>(Groß)Handel</span>
+    <img src="assets/img/marker/marker-icon-h.svg" />&nbsp;<span>(Groß)Handel</span>
   </h2>
   <p>
     meist Getränkemarkt und Großhandel, kaufen von Premium-Kisten/Paletten für
@@ -89,8 +74,7 @@
 
   <hr />
   <h2>
-    <img src="assets/img/marker/marker-icon-s.svg" />
-    <span>Lokaler Kontakt</span>
+    <img src="assets/img/marker/marker-icon-s.svg" />&nbsp;<span>Lokaler Kontakt</span>
   </h2>
   <p>
     die Premium-"Sprecherinnen" vor Ort, welche sich um Handel und Läden
@@ -99,7 +83,7 @@
 
   <hr />
   <h2>
-    <img src="assets/img/marker/marker-icon-o.svg" /> <span>Onlinehandel</span>
+    <img src="assets/img/marker/marker-icon-o.svg" />&nbsp;<span>Onlinehandel</span>
   </h2>
   <p>
     Eine Bestellung von Premium-Getränken über den Versandweg ist der
@@ -112,21 +96,14 @@
   </p>
 </app-popup>
 
-<app-popup *ngIf="feedbackOpen && selectedItem" (close)="toggleFeedback()">
+<app-popup class="popup" *ngIf="feedbackOpen && selectedItem" (close)="toggleFeedback()">
   <h1>Feedback zu {{ selectedItem.name }}</h1>
   <div *ngIf="!feedbackSentMessage">
     <div class="info">
       Ist Dir ein Fehler aufgefallen? Gib uns gerne bescheid...
     </div>
-    <input
-      [(ngModel)]="feedbackEmail"
-      type="email"
-      placeholder="Deine Mailadresse"
-    />
-    <textarea
-      [(ngModel)]="feedbackText"
-      placeholder="Deine Nachricht"
-    ></textarea>
+    <input [(ngModel)]="feedbackEmail" type="email" placeholder="Deine Mailadresse" />
+    <textarea [(ngModel)]="feedbackText" placeholder="Deine Nachricht"></textarea>
     <button (click)="sendFeedback()">Absenden</button>
   </div>
   <div *ngIf="feedbackSentMessage">
@@ -136,25 +113,16 @@
 
 <div class="topbar">
   <div class="searchArea">
-    <input
-      type="text"
-      class="searchbar"
-      placeholder="Laden, (Groß)Handel, lokaler Kontakt oder Onlinehandel eingeben..."
-      #searchInput
-      (keyup)="debounceSearchInput.next(searchInput.value)"
-    />
+    <input type="text" class="searchbar"
+      placeholder="Laden, (Groß)Handel, lokaler Kontakt oder Onlinehandel eingeben..." #searchInput
+      (keyup)="debounceSearchInput.next(searchInput.value)" />
     <button class="searchbarButton" type="button">
       <i class="fa fa-search" aria-hidden="true"></i>
     </button>
     <div class="searchResults">
-      <div
-        class="searchResult"
-        *ngFor="let searchResult of (searchResults | slice: 0:3)"
-        (click)="router.navigate([searchResult.id])"
-      >
-        <img
-          src="assets/img/marker/{{ searchService.mapShopTypesToImage(['1']) }}"
-        />
+      <div class="searchResult" *ngFor="let searchResult of (searchResults | slice: 0:3)"
+        (click)="router.navigate([searchResult.id])">
+        <img src="assets/img/marker/{{ searchService.mapShopTypesToImage(['1']) }}" />
         <div>
           <h3>{{ searchResult.name }}</h3>
           {{ searchResult.street }}, {{ searchResult.zip }}
@@ -165,7 +133,6 @@
   </div>
 
   <span class="group">
-    <!-- <input id="de" type="checkbox" [(ngModel)]="countriesState.DE" (click)="toggleCountry('DE')"> -->
     <div [class.active]="countriesState.DE" (click)="toggleCountry('DE')">
       DE
     </div>
@@ -175,27 +142,14 @@
     <div [class.active]="countriesState.CH" (click)="toggleCountry('CH')">
       CH
     </div>
-
-    <!-- <input id="at" type="checkbox" [(ngModel)]="countriesState.AT" (click)="toggleCountry('AT')">
-    <label for="at">AT</label>
-
-    <input id="ch" type="checkbox" [(ngModel)]="countriesState.CH" (click)="toggleCountry('CH')">
-    <label for="ch">CH</label> -->
   </span>
 
-  <app-dropdown-component
-    selectMessage="Kontakt-Art"
-    [selectItems]="offertypes"
-    (selectItemValueChanged)="offertypeFilterChanged($event)"
-  ></app-dropdown-component>
+  <app-dropdown selectMessage="Kontakt-Art" [selectItems]="offertypes"
+    (selectItemValueChanged)="offertypeFilterChanged($event)"></app-dropdown>
 
-  <app-dropdown-component
-    selectMessage="Produkte"
-    [selectItems]="products"
-    (selectItemValueChanged)="productsFilterChanged($event)"
-  ></app-dropdown-component>
+  <app-dropdown selectMessage="Produkte" [selectItems]="products"
+    (selectItemValueChanged)="productsFilterChanged($event)"></app-dropdown>
 
   <a (click)="toggleLegend()">?</a>
 </div>
-
 <div id="map"></div>

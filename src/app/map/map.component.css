@@ -1,0 +1,234 @@
+#map {
+    /*height : 400px;*/
+    height: 100%;
+    width  : 100%;
+    z-index: 10;
+}
+
+@font-face {
+    font-family: "franklingothic";
+    src        : url("/assets/fonts/franklingothic/franklingothicsb-xcon-webfont.woff2") format("woff2"),
+        url("/assets/fonts/franklingothic/franklingothicsb-xcon-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style : normal;
+}
+
+.topbar {
+    top            : 0;
+    left           : 0;
+    padding        : 0;
+    margin         : 0;
+    position       : absolute;
+    z-index        : 50;
+    width          : 100%;
+    padding        : 12px;
+    display        : flex;
+    flex-wrap      : wrap;
+    box-sizing     : border-box;
+    justify-content: space-between;
+}
+
+.topbar input[type="text"],
+.topbar a {
+    font-family       : franklingothic, "Helvetica Neue", Arial, Helvetica, sans-serif;
+    height            : 39px;
+    font-size         : 20px;
+    color             : black;
+    box-shadow        : 0px 0px 4px 0px rgba(0, 0, 0, 0.45);
+    -webkit-appearance: none;
+    appearance        : none;
+    border            : 0;
+    border-radius     : 3px;
+    padding           : 0 8px;
+    box-sizing        : border-box;
+    margin-bottom     : 4px;
+}
+
+.group {
+    font-family     : franklingothic, "Helvetica Neue", Arial, Helvetica, sans-serif;
+    height          : 39px;
+    font-size       : 20px;
+    color           : lightgray;
+    box-shadow      : 0px 0px 4px 0px rgba(0, 0, 0, 0.45);
+    border          : 0;
+    border-radius   : 3px;
+    padding         : 0 8px;
+    box-sizing      : border-box;
+    margin-bottom   : 4px;
+    background-color: white;
+    display         : flex;
+    align-items     : center;
+    justify-content : space-between;
+}
+
+.group div {
+    margin-right: 10px;
+}
+
+.group div:last-child {
+    margin-right: 0px;
+}
+
+.group div.active {
+    color: black;
+}
+
+.topbar .searchArea {
+    flex-basis: 100%;
+    position  : relative;
+}
+
+.topbar input[type="text"] {
+    outline: none;
+    width  : 100%;
+}
+
+.topbar a {
+    user-select     : none;
+    cursor          : pointer;
+    background-color: white;
+    text-decoration : none;
+    line-height     : 39px;
+}
+
+.topbar a.disabled {
+    color: lightgray;
+}
+
+.topbar a.disabled img {
+    opacity: 0.3;
+}
+
+.topbar img {
+    float : left;
+    height: 32px;
+    width : 28px;
+    margin: 3px 8px 0 0;
+}
+
+/* Above 880px */
+@media only screen and (min-width: 880px) {
+    .topbar .searchArea {
+        flex-basis: initial;
+        flex-grow : 2;
+    }
+
+    .topbar a,
+    .group {
+        margin-left: 4px;
+    }
+
+    .group div {
+        margin-right: 4px;
+    }
+}
+
+.searchbarButton {
+    background: transparent;
+    font-size : 20px;
+    border    : 0;
+    position  : absolute;
+    right     : 0;
+    top       : 6px;
+}
+
+.searchArea .searchResults {
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.45);
+}
+
+.searchResult:hover {
+    background-color: black;
+    color           : white;
+}
+
+.searchResult {
+    font-family     : "Helvetica Neue", Arial, Helvetica, sans-serif;
+    width           : 100%;
+    background-color: white;
+    height          : 60px;
+    font-size       : 14px;
+    cursor          : pointer;
+    border-top      : 1px solid gray;
+}
+
+.searchResult h3 {
+    font-family: franklingothic, "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-size  : 20px;
+}
+
+.searchResult:first-child {
+    border-top: none;
+}
+
+.searchResult img {
+    margin: 14px;
+}
+
+.searchResult h3 {
+    margin-top   : auto;
+    margin-bottom: auto;
+}
+
+.searchResult div {
+    height     : 38px;
+    padding-top: 10px;
+}
+
+.popup a {
+    color          : #888;
+    text-decoration: none;
+    font-weight    : bold;
+}
+
+.popup a:hover {
+    text-decoration: underline;
+}
+
+.popup .info {
+    background-color: #dddddd;
+    color           : #3f3f3f;
+    border-radius   : 3px;
+    margin          : 10px 0 0 0;
+    padding         : 12px;
+}
+
+.popup h2 img {
+    height       : 32px;
+    margin-bottom: -6px;
+}
+
+.popup h1,
+.popup h2 {
+    font-family: franklingothic, "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-size  : 26px;
+}
+
+.popup input,
+.popup textarea {
+    border-radius: 3px;
+    padding      : 8px;
+    font-size    : 14px;
+    margin-top   : 10px;
+    border       : 1px solid #ccc;
+    width        : calc(100% - 18px);
+}
+
+.popup textarea {
+    height: 150px;
+}
+
+.popup button {
+    font-family     : franklingothic, "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-size       : 26px;
+    background-color: black;
+    color           : white;
+    padding         : 6px 12px;
+    border          : 1px solid black;
+    border-radius   : 3px;
+    margin-top      : 10px;
+}
+
+.popup button:hover {
+    color           : black;
+    background-color: white;
+}

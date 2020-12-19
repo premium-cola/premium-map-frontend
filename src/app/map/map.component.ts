@@ -1,108 +1,110 @@
-import { Component, OnInit } from '@angular/core';
-import { SearchService, SearchResult, Item } from '../search.service';
-import { Subject } from 'rxjs/Subject';
-import { map, debounceTime } from 'rxjs/operators';
-import { SelectItem } from '../dropdown/dropdown.component';
-
-import * as L from 'leaflet';
-import 'leaflet.markercluster';
-import { ActivatedRoute, Router, Params } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { Subject } from "rxjs";
+import * as L from "leaflet";
+import "leaflet.markercluster";
+import { SelectItem } from "../dropdown/dropdown.component";
+import { SearchResult, Item, SearchService } from "../search.service";
+import { ActivatedRoute, Router, Params } from "@angular/router";
+import { debounceTime } from "rxjs/operators";
 
 @Component({
-  selector: 'app-map',
-  templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss']
+  selector: "app-map",
+  templateUrl: "./map.component.html",
+  styleUrls: ["./map.component.css"],
 })
 export class MapComponent implements OnInit {
-  private map: L.Map;
-  private markerClusterGroup: L.MarkerClusterGroup;
+  private map: L.Map | undefined;
+  private markerClusterGroup: L.MarkerClusterGroup | undefined;
   private defaultHomePosition: L.LatLng = L.latLng(
     50.93766174471314,
-    9.777832031250002
+    9.777832031250002,
   );
+
   private defaultZoomLevel = 7;
 
   // State of the offertypes in the top bar
   public offertypes: { [id: string]: SelectItem } = {
     laeden: {
-      id: 'laeden',
-      name: 'Laden',
+      id: "laeden",
+      name: "Laden",
       value: true,
-      icon: 'marker-icon-l.svg'
+      icon: "marker-icon-l.svg",
     },
     haendler: {
-      id: 'haendler',
-      name: '(Groß)Handel',
+      id: "haendler",
+      name: "(Groß)Handel",
       value: true,
-      icon: 'marker-icon-h.svg'
+      icon: "marker-icon-h.svg",
     },
     sprecher: {
-      id: 'sprecher',
-      name: 'lokaler Kontakt',
+      id: "sprecher",
+      name: "lokaler Kontakt",
       value: true,
-      icon: 'marker-icon-s.svg'
+      icon: "marker-icon-s.svg",
     },
     webshop: {
-      id: 'webshop',
-      name: 'Onlinehandel',
+      id: "webshop",
+      name: "Onlinehandel",
       value: true,
-      icon: 'marker-icon-o.svg'
-    }
+      icon: "marker-icon-o.svg",
+    },
   };
 
   public products: { [id: string]: SelectItem } = {
     cola: {
-      id: 'cola',
-      name: 'Cola',
-      value: true
+      id: "cola",
+      name: "Cola",
+      value: true,
     },
     bier: {
-      id: 'bier',
-      name: 'Bier',
-      value: true
+      id: "bier",
+      name: "Bier",
+      value: true,
     },
     frohlunder: {
-      id: 'frohlunder',
-      name: 'Frohlunder',
-      value: true
+      id: "frohlunder",
+      name: "Frohlunder",
+      value: true,
     },
     muntermate: {
-      id: 'muntermate',
-      name: 'Muntermate',
-      value: true
-    }
+      id: "muntermate",
+      name: "Muntermate",
+      value: true,
+    },
   };
 
-  public countriesState = {
+  public countriesState: { [id: string]: boolean } = {
     DE: true,
     AT: true,
-    CH: true
+    CH: true,
   };
 
   private itemList: any[];
 
   public debounceSearchInput: Subject<string> = new Subject();
-  public searchResults: SearchResult[];
+  public searchResults: SearchResult[] = [];
 
   public legendOpen = false;
   public imprintOpen = false;
   public feedbackOpen = false;
 
-  public selectedItem: Item;
+  public selectedItem: Item | undefined;
 
-  public feedbackEmail = '';
-  public feedbackText = '';
-  public feedbackSentMessage;
+  public feedbackEmail: any = "";
+  public feedbackText: any = "";
+  public feedbackSentMessage: string | null = "";
 
   constructor(
     private route: ActivatedRoute,
     public searchService: SearchService,
-    public router: Router
-  ) {}
+    public router: Router,
+  ) {
+    this.itemList = [];
+  }
 
   async ngOnInit() {
-    this.route.fragment.subscribe(fragment => {
-      if (fragment === 'feedback') {
+    this.route.fragment.subscribe((fragment) => {
+      if (fragment === "feedback") {
         this.feedbackOpen = true;
       }
     });
@@ -112,9 +114,9 @@ export class MapComponent implements OnInit {
       .itemList(
         this.enabledOffertypes(),
         this.enabledCountries(),
-        this.enabledProducts()
+        this.enabledProducts(),
       )
-      .subscribe(itemList => {
+      .subscribe((itemList) => {
         this.itemList = itemList;
         this.updateMarker(() => {
           this.route.params.subscribe((params: Params) => {
@@ -135,109 +137,80 @@ export class MapComponent implements OnInit {
   }
 
   private initalizeMap() {
-    this.map = L.map('map', {
+    this.map = L.map("map", {
       maxZoom: 19,
-      zoomControl: false
+      zoomControl: false,
     });
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution:
-        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(this.map);
 
     // Add zoom control to the bottom left
     L.control
       .zoom({
-        position: 'bottomleft'
+        position: "bottomleft",
       })
       .addTo(this.map);
 
     // Add imprint control button
     const imprintControl = L.Control.extend({
       options: {
-        position: 'bottomright'
+        position: "bottomright",
       },
       onAdd: () => {
         const container = L.DomUtil.create(
-          'div',
-          'leaflet-bar leaflet-control leaflet-control-custom'
+          "div",
+          "leaflet-bar leaflet-control leaflet-control-custom",
         );
-        container.style.backgroundColor = 'white';
-        container.style.width = '30px';
-        container.style.height = '30px';
-        container.innerText = 'i';
-        container.style.fontFamily = 'icomoon';
-        container.style.fontSize = '100%';
-        container.style.textAlign = 'center';
-        container.style.fontWeight = '700';
-        container.style.fontSize = '20px';
-        container.style.cursor = 'pointer';
+        container.style.backgroundColor = "white";
+        container.style.width = "30px";
+        container.style.height = "30px";
+        container.innerText = "i";
+        container.style.fontFamily = "icomoon";
+        container.style.fontSize = "100%";
+        container.style.textAlign = "center";
+        container.style.fontWeight = "700";
+        container.style.fontSize = "20px";
+        container.style.cursor = "pointer";
         container.onclick = () => {
           this.toggleImprint();
         };
         return container;
-      }
+      },
     });
     this.map.addControl(new imprintControl());
 
     // Add home control button
     const homeControl = L.Control.extend({
       options: {
-        position: 'bottomleft'
+        position: "bottomleft",
       },
       onAdd: () => {
         const container = L.DomUtil.create(
-          'div',
-          'leaflet-bar leaflet-control leaflet-control-custom'
+          "div",
+          "leaflet-bar leaflet-control leaflet-control-custom",
         );
-        container.style.backgroundColor = 'white';
-        container.style.width = '30px';
-        container.style.height = '30px';
+        container.style.backgroundColor = "white";
+        container.style.width = "30px";
+        container.style.height = "30px";
         container.innerHTML = '<i class="fa fa-home" aria-hidden="true"></i>';
-        container.style.fontFamily = 'icomoon';
-        container.style.fontSize = '100%';
-        container.style.textAlign = 'center';
-        container.style.fontWeight = '700';
-        container.style.fontSize = '20px';
-        container.style.cursor = 'pointer';
+        container.style.fontFamily = "icomoon";
+        container.style.fontSize = "100%";
+        container.style.textAlign = "center";
+        container.style.fontWeight = "700";
+        container.style.fontSize = "20px";
+        container.style.cursor = "pointer";
         container.onclick = () => {
           this.centerPositionOnMap(14);
         };
         return container;
-      }
+      },
     });
     this.map.addControl(new homeControl());
 
-    // Add list view control button
-    const listViewControl = L.Control.extend({
-      options: {
-        position: 'bottomleft'
-      },
-      onAdd: () => {
-        const container = L.DomUtil.create(
-          'div',
-          'leaflet-bar leaflet-control leaflet-control-custom'
-        );
-        container.style.backgroundColor = 'white';
-        container.style.width = '30px';
-        container.style.height = '30px';
-        container.innerHTML = '<i class="fa fa-bars" aria-hidden="true"></i>';
-        container.style.fontFamily = 'icomoon';
-        container.style.fontSize = '100%';
-        container.style.textAlign = 'center';
-        container.style.fontWeight = '700';
-        container.style.fontSize = '20px';
-        container.style.cursor = 'pointer';
-        container.onclick = () => {
-          this.router.navigate(['list']);
-        };
-        return container;
-      }
-    });
-    // this.map.addControl(new listViewControl());
-
     // Hide search results on map clicked event
-    this.map.addEventListener('click', () => {
+    this.map.addEventListener("click", () => {
       this.searchResults = [];
     });
   }
@@ -254,35 +227,41 @@ export class MapComponent implements OnInit {
     this.markerClusterGroup = L.markerClusterGroup({
       maxClusterRadius: 60,
       polygonOptions: {
-        fillColor: '#000',
-        color: '#000',
+        fillColor: "#000",
+        color: "#000",
         weight: 4,
         opacity: 0.5,
-        fillOpacity: 0.2
-      }
+        fillOpacity: 0.2,
+      },
     });
 
     this.itemList.map((item: any[]) => {
       let marker: CustomMarker;
-      marker = new CustomMarker(item[0], L.latLng(item[1][0], item[1][1]), {
-        icon: L.icon({
-          iconUrl: `assets/img/marker/${this.searchService.mapShopTypesToImage(
-            item[2]
-          )}`,
-          iconSize: [36, 42],
-          popupAnchor: [0, -20]
-        })
-      });
+      marker = new CustomMarker(
+        item[0],
+        L.latLng(item[1][0], item[1][1]),
+        {
+          icon: L.icon({
+            iconUrl: `assets/img/marker/${
+              this.searchService.mapShopTypesToImage(
+                item[2],
+              )
+            }`,
+            iconSize: [36, 42],
+            popupAnchor: [0, -20],
+          }),
+        },
+      );
 
       marker.bindPopup(
         () => {
-          return 'Lade Daten...';
+          return "Lade Daten...";
         },
-        { autoPanPadding: new L.Point(65, 65) }
+        { autoPanPadding: new L.Point(65, 65) },
       );
 
-      marker.off('click');
-      marker.addEventListener('click', (event: L.LeafletEvent) => {
+      marker.off("click");
+      marker.addEventListener("click", (event: L.LeafletEvent) => {
         const eventMarker: CustomMarker = event.target as CustomMarker;
         if (this.router.isActive(`${eventMarker.getId()}`, true)) {
           eventMarker.togglePopup();
@@ -291,7 +270,7 @@ export class MapComponent implements OnInit {
         }
       });
 
-      marker.addEventListener('popupopen', (event: L.LeafletEvent) => {
+      marker.addEventListener("popupopen", (event: L.LeafletEvent) => {
         const eventMarker: CustomMarker = event.target as CustomMarker;
         this.searchService
           .itemDetails(marker.getId())
@@ -300,8 +279,8 @@ export class MapComponent implements OnInit {
             marker.setPopupContent(
               `
               <h2>${itemDetails.name}</h2>
-              <small>${itemDetails.offertypes.join(', ')} für</small>
-              <small>${itemDetails.products.join(', ')}</small>
+              <small>${itemDetails.offertypes.join(", ")} für</small>
+              <small>${itemDetails.products.join(", ")}</small>
               <br>
               <p>
                 ${itemDetails.street}<br>
@@ -309,38 +288,36 @@ export class MapComponent implements OnInit {
               </p>
               <p>
                 ${
-                  itemDetails.web
-                    ? '<i class="fa fa-globe" aria-hidden="true"></i> <a target="_blank" href="' +
-                      itemDetails.web +
-                      '">' +
-                      itemDetails.web +
-                      '</a>'
-                    : ''
-                }<br>
+                itemDetails.web
+                  ? '<i class="fa fa-globe" aria-hidden="true"></i> <a target="_blank" href="' +
+                    itemDetails.web +
+                    '">' +
+                    itemDetails.web +
+                    "</a>"
+                  : ""
+              }<br>
                 ${
-                  itemDetails.email
-                    ? '<i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:' +
-                      itemDetails.email +
-                      '">' +
-                      itemDetails.email +
-                      '</a>'
-                    : ''
-                }<br>
+                itemDetails.email
+                  ? '<i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:' +
+                    itemDetails.email +
+                    '">' +
+                    itemDetails.email +
+                    "</a>"
+                  : ""
+              }<br>
                 ${
-                  itemDetails.phone
-                    ? '<i class="fa fa-phone" aria-hidden="true"></i> <a href="tel:"' +
-                      itemDetails.phone +
-                      '">' +
-                      itemDetails.phone +
-                      '</a>'
-                    : ''
-                }
+                itemDetails.phone
+                  ? '<i class="fa fa-phone" aria-hidden="true"></i> <a href="tel:"' +
+                    itemDetails.phone +
+                    '">' +
+                    itemDetails.phone +
+                    "</a>"
+                  : ""
+              }
               </p>
               <p>
                 <i class="fa fa-bullhorn" aria-hidden="true"></i>
-                <a href="${
-                  itemDetails.id
-                }#feedback">Feedback zu diesem Eintrag?</a>
+                <a href="${itemDetails.id}#feedback">Feedback zu diesem Eintrag?</a>
               </p>
               <p>
                 <small>
@@ -348,15 +325,19 @@ export class MapComponent implements OnInit {
                   Falls nicht, bitten wir um ein kurzes Feedback
                 </small>
               </p>
-            `
+            `,
             );
           });
       });
       //
-      marker.addTo(this.markerClusterGroup);
+      if (this.markerClusterGroup) {
+        marker.addTo(this.markerClusterGroup);
+      }
     });
 
-    this.markerClusterGroup.addTo(this.map);
+    if (this.map) {
+      this.markerClusterGroup.addTo(this.map);
+    }
 
     if (complete) {
       complete();
@@ -368,7 +349,7 @@ export class MapComponent implements OnInit {
    */
   private centerPositionOnMap(zoomLevel = 10) {
     const lastCurrentPosition: Position = JSON.parse(
-      localStorage.getItem('lastCurrentPosition')
+      localStorage.getItem("lastCurrentPosition") || "{}",
     );
 
     /**
@@ -376,37 +357,45 @@ export class MapComponent implements OnInit {
      * If it isn't oldet than 30 minutes then the location is used immediately instead of requesting it
      * through the browser API.
      */
-    if (
-      lastCurrentPosition &&
-      Math.floor(new Date().getTime() / 1000) - lastCurrentPosition.timestamp <=
-        1800
-    ) {
-      this.map.setView(
-        L.latLng(
-          lastCurrentPosition.coords.latitude,
-          lastCurrentPosition.coords.longitude
-        ),
-        zoomLevel
-      );
-    } else {
-      this.map.setView(this.defaultHomePosition, this.defaultZoomLevel);
-
-      navigator.geolocation.getCurrentPosition((position: Position) => {
-        localStorage.setItem(
-          'lastCurrentPosition',
-          JSON.stringify({
-            coords: {
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude
-            },
-            timestamp: position.timestamp
-          })
-        );
+    if (this.map) {
+      if (
+        lastCurrentPosition &&
+        Math.floor(new Date().getTime() / 1000) -
+              lastCurrentPosition.timestamp <=
+          1800
+      ) {
         this.map.setView(
-          L.latLng(position.coords.latitude, position.coords.longitude),
-          zoomLevel
+          L.latLng(
+            lastCurrentPosition.coords.latitude,
+            lastCurrentPosition.coords.longitude,
+          ),
+          zoomLevel,
         );
-      });
+      } else {
+        this.map.setView(this.defaultHomePosition, this.defaultZoomLevel);
+
+        navigator.geolocation.getCurrentPosition(
+          (position: Position) => {
+            localStorage.setItem(
+              "lastCurrentPosition",
+              JSON.stringify({
+                coords: {
+                  latitude: position.coords.latitude,
+                  longitude: position.coords.longitude,
+                },
+                timestamp: position.timestamp,
+              }),
+            );
+            this.map && this.map.setView(
+              L.latLng(
+                position.coords.latitude,
+                position.coords.longitude,
+              ),
+              zoomLevel,
+            );
+          },
+        );
+      }
     }
   }
 
@@ -416,6 +405,32 @@ export class MapComponent implements OnInit {
       .subscribe((searchResults: SearchResult[]) => {
         this.searchResults = searchResults;
       });
+  }
+
+  /**
+   * Show details in a popup window about a specific shop
+   *
+   * @param itemId
+   */
+  public showDetails(itemId: number | string) {
+    if (typeof itemId === "string") {
+      itemId = parseInt(itemId, 10);
+    }
+    if (this.searchResults) {
+      this.clearSearchResults();
+    }
+    if (this.markerClusterGroup && this.map) {
+      const targetMarker: L.Layer | undefined = this.markerClusterGroup
+        .getLayers()
+        .find((layer: any) => {
+          return itemId === layer.getId();
+        });
+      if (targetMarker) {
+        const marker = targetMarker as CustomMarker;
+        this.map.panTo(marker.getLatLng(), {});
+        marker.openPopup();
+      }
+    }
   }
 
   /**
@@ -476,28 +491,6 @@ export class MapComponent implements OnInit {
     return enabledCountries;
   }
 
-  /**
-   * Show details in a popup window about a specific shop
-   *
-   * @param itemId
-   */
-  public showDetails(itemId: number | string) {
-    if (typeof itemId === 'string') {
-      itemId = parseInt(itemId, 10);
-    }
-    if (this.searchResults) {
-      this.clearSearchResults();
-    }
-    const targetMarker: L.Layer = this.markerClusterGroup
-      .getLayers()
-      .find((layer: CustomMarker) => {
-        return itemId === layer.getId();
-      });
-    const marker = targetMarker as CustomMarker;
-    this.map.panTo(marker.getLatLng(), {});
-    marker.openPopup();
-  }
-
   public offertypeFilterChanged(offertypeFilterItem: SelectItem) {
     this.offertypes[offertypeFilterItem.id].value = offertypeFilterItem.value;
     this.filterItems();
@@ -531,7 +524,7 @@ export class MapComponent implements OnInit {
   }
 
   public sendFeedback() {
-    this.searchService
+    this.selectedItem && this.searchService
       .sendFeedback(this.selectedItem, this.feedbackEmail, this.feedbackText)
       .subscribe((response: { status: number; data: { msg: string } }) => {
         this.feedbackSentMessage = response.data.msg;
@@ -552,7 +545,7 @@ export class CustomMarker extends L.Marker {
   constructor(
     id: number,
     latlng: L.LatLngExpression,
-    options?: L.MarkerOptions
+    options?: L.MarkerOptions,
   ) {
     super(latlng, options);
     this.id = id;
