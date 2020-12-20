@@ -138,7 +138,7 @@ export class MapComponent implements OnInit {
 
   private initalizeMap() {
     this.map = L.map("map", {
-      maxZoom: 19,
+      maxZoom: 17,
       zoomControl: false,
     });
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -427,7 +427,8 @@ export class MapComponent implements OnInit {
         });
       if (targetMarker) {
         const marker = targetMarker as CustomMarker;
-        this.map.panTo(marker.getLatLng(), {});
+        const markerBounds = L.latLngBounds([marker.getLatLng()]);
+        this.map.fitBounds(markerBounds);
         marker.openPopup();
       }
     }
