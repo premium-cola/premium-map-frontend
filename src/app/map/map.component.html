@@ -48,54 +48,6 @@
   </p>
 </app-popup>
 
-<app-popup class="popup" *ngIf="legendOpen" (close)="toggleLegend()">
-  <h1>Legende</h1>
-  <div class="info">
-    Einzelne Marker-Icon Typen können durch einen Klick auf das Icon in der
-    Toolbar aus oder eingeblendet werden Standardmäßig werden alle Marker-Icons
-    eingeblendet
-  </div>
-
-  <h2><img src="assets/img/marker/marker-icon-l.svg" />&nbsp;<span>Laden</span></h2>
-  <p>
-    Cafe/Club/Bar/Restaurant/Designladen/Hackspace/Kulturzentrum/etc. meist mit
-    direktem Konsum vor Ort. Bei Interesse bitte direkt beim Laden nachfragen,
-    ob man Flaschen/Kisten zum mitnehmen kaufen kann (wie zb. bei einem Kiosk).
-  </p>
-
-  <hr />
-  <h2>
-    <img src="assets/img/marker/marker-icon-h.svg" />&nbsp;<span>(Groß)Handel</span>
-  </h2>
-  <p>
-    meist Getränkemarkt und Großhandel, kaufen von Premium-Kisten/Paletten für
-    Privatpersonen und für Läden möglich
-  </p>
-
-  <hr />
-  <h2>
-    <img src="assets/img/marker/marker-icon-s.svg" />&nbsp;<span>Lokaler Kontakt</span>
-  </h2>
-  <p>
-    die Premium-"Sprecherinnen" vor Ort, welche sich um Handel und Läden
-    kümmern, und für lokale Fragen jeder Art zur Verfügung stehen.
-  </p>
-
-  <hr />
-  <h2>
-    <img src="assets/img/marker/marker-icon-o.svg" />&nbsp;<span>Onlinehandel</span>
-  </h2>
-  <p>
-    Eine Bestellung von Premium-Getränken über den Versandweg ist der
-    un-ökologischste Weg an Premium zu kommen. Trotzdem wollen wir dies als
-    Option anbieten, denn in manchen Regionen ist das nicht zu umgehen ohne auf
-    dem Trockenen zu sitzen. Bitte wähle den regional nächstgelegenen
-    Onlinehandel. Der Gesamtpreis einer Bestellung (Produkt + Versand) ist
-    üblicherweise bei jedem Anbieter gleich, denn diese orientieren sich an
-    einer unverbindlichen und ökologischen Preisempfehlung.
-  </p>
-</app-popup>
-
 <app-popup class="popup" *ngIf="feedbackOpen && selectedItem" (close)="toggleFeedback()">
   <h1>Feedback zu {{ selectedItem.name }}</h1>
   <div *ngIf="!feedbackSentMessage">

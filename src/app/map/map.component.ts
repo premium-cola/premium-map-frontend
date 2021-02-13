@@ -85,7 +85,6 @@ export class MapComponent implements OnInit {
   public debounceSearchInput: Subject<string> = new Subject();
   public searchResults: SearchResult[] = [];
 
-  public legendOpen = false;
   public imprintOpen = false;
   public feedbackOpen = false;
 
@@ -507,7 +506,7 @@ export class MapComponent implements OnInit {
    * Open/Closes the legend popup
    */
   public toggleLegend() {
-    this.legendOpen = !this.legendOpen;
+    this.router.navigateByUrl("/legende");
   }
 
   /**
