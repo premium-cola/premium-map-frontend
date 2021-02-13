@@ -85,7 +85,6 @@ export class MapComponent implements OnInit {
   public debounceSearchInput: Subject<string> = new Subject();
   public searchResults: SearchResult[] = [];
 
-  public imprintOpen = false;
   public feedbackOpen = false;
 
   public selectedItem: Item | undefined;
@@ -513,7 +512,7 @@ export class MapComponent implements OnInit {
    * Open/Closes the imprint popup
    */
   public toggleImprint() {
-    this.imprintOpen = !this.imprintOpen;
+    this.router.navigateByUrl("/imprint");
   }
 
   public toggleFeedback() {

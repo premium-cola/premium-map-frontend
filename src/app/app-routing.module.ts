@@ -8,6 +8,10 @@ const routes: Routes = [
     loadChildren: () => import('./legende/legende.module').then(m => m.LegendeModule)
   },
   {
+    path: 'imprint',
+    loadChildren: () => import('./imprint/imprint.module').then(m => m.ImprintModule)
+  },
+  {
     path: "",
     component: MapComponent,
   },
