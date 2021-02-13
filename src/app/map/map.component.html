@@ -1,18 +1,3 @@
-<app-popup class="popup" *ngIf="feedbackOpen && selectedItem" (close)="toggleFeedback()">
-  <h1>Feedback zu {{ selectedItem.name }}</h1>
-  <div *ngIf="!feedbackSentMessage">
-    <div class="info">
-      Ist Dir ein Fehler aufgefallen? Gib uns gerne bescheid...
-    </div>
-    <input [(ngModel)]="feedbackEmail" type="email" placeholder="Deine Mailadresse" />
-    <textarea [(ngModel)]="feedbackText" placeholder="Deine Nachricht"></textarea>
-    <button (click)="sendFeedback()">Absenden</button>
-  </div>
-  <div *ngIf="feedbackSentMessage">
-    <div class="info">{{ feedbackSentMessage }}</div>
-  </div>
-</app-popup>
-
 <div class="topbar">
   <div class="searchArea">
     <input type="text" class="searchbar"

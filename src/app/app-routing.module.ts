@@ -12,6 +12,10 @@ const routes: Routes = [
     loadChildren: () => import('./imprint/imprint.module').then(m => m.ImprintModule)
   },
   {
+    path: 'feedback',
+    loadChildren: () => import('./feedback/feedback.module').then(m => m.FeedbackModule)
+  },
+  {
     path: "",
     component: MapComponent,
   },

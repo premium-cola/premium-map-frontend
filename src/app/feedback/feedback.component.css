@@ -1,0 +1,51 @@
+.feedbackWrapper {
+    max-width     : 36rem;
+    margin-left   : auto;
+    margin-right  : auto;
+    padding-left  : 2rem;
+    padding-right : 2rem;
+    padding-bottom: 1rem;
+}
+
+h1,
+h2 {
+    font-family: franklingothic, "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-size  : 26px;
+}
+
+.fa-times {
+    float    : right;
+    font-size: 20px;
+    cursor   : pointer;
+}
+
+input,
+textarea {
+    border-radius: 3px;
+    padding      : 8px;
+    font-size    : 14px;
+    margin-top   : 10px;
+    border       : 1px solid #ccc;
+    width        : calc(100% - 18px);
+    font-family  : Arial;
+}
+
+textarea {
+    height: 150px;
+}
+
+button {
+    font-family     : franklingothic, "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-size       : 26px;
+    background-color: black;
+    color           : white;
+    padding         : 6px 12px;
+    border          : 1px solid black;
+    border-radius   : 3px;
+    margin-top      : 10px;
+}
+
+button:hover {
+    color           : black;
+    background-color: white;
+}

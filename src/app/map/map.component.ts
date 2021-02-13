@@ -85,13 +85,7 @@ export class MapComponent implements OnInit {
   public debounceSearchInput: Subject<string> = new Subject();
   public searchResults: SearchResult[] = [];
 
-  public feedbackOpen = false;
-
   public selectedItem: Item | undefined;
-
-  public feedbackEmail: any = "";
-  public feedbackText: any = "";
-  public feedbackSentMessage: string | null = "";
 
   constructor(
     private route: ActivatedRoute,
@@ -102,11 +96,6 @@ export class MapComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.route.fragment.subscribe((fragment) => {
-      if (fragment === "feedback") {
-        this.feedbackOpen = true;
-      }
-    });
     this.initalizeMap();
 
     this.searchService
@@ -316,7 +305,7 @@ export class MapComponent implements OnInit {
               </p>
               <p>
                 <i class="fa fa-bullhorn" aria-hidden="true"></i>
-                <a href="${itemDetails.id}#feedback">Feedback zu diesem Eintrag?</a>
+                <a href="/feedback/${itemDetails.id}">Feedback zu diesem Eintrag?</a>
               </p>
               <p>
                 <small>
@@ -513,24 +502,6 @@ export class MapComponent implements OnInit {
    */
   public toggleImprint() {
     this.router.navigateByUrl("/imprint");
-  }
-
-  public toggleFeedback() {
-    this.feedbackOpen = !this.feedbackOpen;
-    if (!this.feedbackOpen) {
-      window.location.hash = '';
-      this.feedbackSentMessage = null;
-    }
-  }
-
-  public sendFeedback() {
-    this.selectedItem && this.searchService
-      .sendFeedback(this.selectedItem, this.feedbackEmail, this.feedbackText)
-      .subscribe((response: { status: number; data: { msg: string } }) => {
-        this.feedbackSentMessage = response.data.msg;
-        this.feedbackEmail = '';
-        this.feedbackText = '';
-      });
   }
 
   public clearSearchResults() {

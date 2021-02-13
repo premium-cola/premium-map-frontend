@@ -11,7 +11,6 @@ export class SearchService {
   private itemListPath = '/item/list';
   private itemAllPath = '/item/all';
   private itemDetailsPath = '/item';
-  private feedbackPath = '/feedback';
 
   constructor(private http: HttpClient) {}
 
@@ -53,22 +52,6 @@ export class SearchService {
     return this.http
       .get<any>(url)
       .pipe(map(itemList => itemList.data as any[]));
-  }
-
-  public sendFeedback(
-    item: Item,
-    email: string,
-    feedback: string
-  ): Observable<any> {
-    const url = `${this.host}${this.feedbackPath}`;
-    const body = new URLSearchParams();
-    body.set('email', email);
-    body.set('feedback', feedback);
-    body.set('id', `${item.id}`);
-    body.set('zip', item.zip);
-    return this.http.post(url, body.toString(), {
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-    });
   }
 
   /**
