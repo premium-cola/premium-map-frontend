@@ -30,8 +30,8 @@
             ],
             "styles": [
               "node_modules/leaflet/dist/leaflet.css",
-              "node_modules/font-awesome/css/font-awesome.min.css",
-              "src/styles.css"
+              "src/css/custom-font-awesome.css",
+              "src/css/styles.css"
             ],
             "scripts": []
           },

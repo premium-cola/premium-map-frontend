@@ -1,0 +1,57 @@
+/*!
+ *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
+ *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
+ *  Minified to exactly what this project needed by Christoph Haefner
+ *  copied over from node_modules/font-awesome/css/font-awesome.min.css
+ */
+/* FONT PATH
+ * -------------------------- */
+@font-face {
+    font-family: 'FontAwesome';
+    src        : url('./fonts/fontawesome-webfont.eot?v=4.7.0');
+    src        : url('./fonts/fontawesome-webfont.eot?#iefix&v=4.7.0') format('embedded-opentype'), url('./fonts/fontawesome-webfont.woff2?v=4.7.0') format('woff2'), url('./fonts/fontawesome-webfont.woff?v=4.7.0') format('woff'), url('./fonts/fontawesome-webfont.ttf?v=4.7.0') format('truetype'), url('./fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular') format('svg');
+    font-weight: normal;
+    font-style : normal;
+}
+
+.fa {
+    display                : inline-block;
+    font                   : normal normal normal 14px/1 FontAwesome;
+    font-size              : inherit;
+    text-rendering         : auto;
+    -webkit-font-smoothing : antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* dropdown.component.html */
+.fa-caret-down:before {
+    content: "\f0d7";
+}
+
+/* all separate pages */
+.fa-close:before,
+.fa-times:before {
+    content: "\f00d";
+}
+
+/* map.component.html */
+.fa-search:before {
+    content: "\f002";
+}
+
+/* map.component.nts */
+.fa-globe:before {
+    content: "\f0ac";
+}
+
+.fa-envelope:before {
+    content: "\f0e0";
+}
+
+.fa-phone:before {
+    content: "\f095";
+}
+
+.fa-bullhorn:before {
+    content: "\f0a1";
+}
