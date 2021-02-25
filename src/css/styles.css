@@ -57,6 +57,7 @@ body {
   src        : url('./fonts/franklingothicsb-xcon-webfont.woff2') format('woff2'), url('./fonts/franklingothicsb-xcon-webfont.woff') format('woff');
   font-weight: normal;
   font-style : normal;
+  font-display: swap;
 }
 
 .marker-cluster {
