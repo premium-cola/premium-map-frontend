@@ -5,14 +5,6 @@
     z-index: 10;
 }
 
-@font-face {
-    font-family: "franklingothic";
-    src        : url("/assets/fonts/franklingothic/franklingothicsb-xcon-webfont.woff2") format("woff2"),
-        url("/assets/fonts/franklingothic/franklingothicsb-xcon-webfont.woff") format("woff");
-    font-weight: normal;
-    font-style : normal;
-}
-
 .topbar {
     top            : 0;
     left           : 0;

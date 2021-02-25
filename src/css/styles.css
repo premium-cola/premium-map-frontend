@@ -52,6 +52,13 @@ body {
   background-color: rgb(241, 128, 23);
 }
 
+@font-face {
+  font-family: 'franklingothic';
+  src        : url('./fonts/franklingothicsb-xcon-webfont.woff2') format('woff2'), url('./fonts/franklingothicsb-xcon-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style : normal;
+}
+
 .marker-cluster {
   background-clip: padding-box;
   border-radius: 20px;
