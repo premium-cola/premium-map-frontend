@@ -4,7 +4,7 @@
     </span>
     <a [class.disabled]="!selectItems[selectItem.id].value" *ngFor="let selectItem of getSelectItems()"
         (click)="toggleProperty(selectItem.id)">
-        <img *ngIf="selectItems[selectItem.id].icon" src="assets/img/marker/{{ selectItems[selectItem.id].icon }}" />
+        <img *ngIf="selectItems[selectItem.id].icon" height="32" width="28" src="assets/img/marker/{{ selectItems[selectItem.id].icon }}" />
         {{ selectItem.name }}
     </a>
 </div>
