@@ -16,7 +16,7 @@ Run `npm run build-stage` to build the project for production.
 
 ## Deploy
 
-Run `npm run build-stage && scp -r dist/map-frontend/* premium:/var/www/landkarte.premium-cola.de/` (replace premium with your access to the prod server) to deploy to production.
+Run `npm run build-stage && scp -r dist/map-frontend/* dist/map-frontend/.[!.]* premium:/var/www/landkarte.premium-cola.de/` (replace premium with your access to the prod server) to deploy to production.
 
 ## Running unit tests
 
