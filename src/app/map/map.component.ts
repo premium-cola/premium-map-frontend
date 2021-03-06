@@ -21,6 +21,7 @@ export class MapComponent implements OnInit {
   );
 
   private defaultZoomLevel = 7;
+  private defaultZoomLevelToHome = 14;
 
   // State of the offertypes in the top bar
   public offertypes: { [id: string]: SelectItem } = {
@@ -202,7 +203,11 @@ export class MapComponent implements OnInit {
         container.style.fontSize = "20px";
         container.style.cursor = "pointer";
         container.onclick = () => {
-          this.centerPositionOnMap(14);
+          if (this.router.isActive("/", true /* exact */)) {
+            this.centerPositionOnMap();
+          } else {
+            this.router.navigateByUrl("/");
+          }
         };
         return container;
       },
@@ -242,11 +247,10 @@ export class MapComponent implements OnInit {
         L.latLng(item[1][0], item[1][1]),
         {
           icon: L.icon({
-            iconUrl: `assets/img/marker/${
-              this.searchService.mapShopTypesToImage(
-                item[2],
-              )
-            }`,
+            iconUrl: `assets/img/marker/${this.searchService.mapShopTypesToImage(
+              item[2],
+            )
+              }`,
             iconSize: [36, 42],
             popupAnchor: [0, -20],
           }),
@@ -287,32 +291,29 @@ export class MapComponent implements OnInit {
                 ${itemDetails.zip} ${itemDetails.city}
               </p>
               <p>
-                ${
-                itemDetails.web
-                  ? '<i class="fa fa-globe" aria-hidden="true"></i> <a target="_blank" href="' +
-                    itemDetails.web +
-                    '">' +
-                    itemDetails.web +
-                    "</a>"
-                  : ""
+                ${itemDetails.web
+                ? '<i class="fa fa-globe" aria-hidden="true"></i> <a target="_blank" href="' +
+                itemDetails.web +
+                '">' +
+                itemDetails.web +
+                "</a>"
+                : ""
               }<br>
-                ${
-                itemDetails.email
-                  ? '<i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:' +
-                    itemDetails.email +
-                    '">' +
-                    itemDetails.email +
-                    "</a>"
-                  : ""
+                ${itemDetails.email
+                ? '<i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:' +
+                itemDetails.email +
+                '">' +
+                itemDetails.email +
+                "</a>"
+                : ""
               }<br>
-                ${
-                itemDetails.phone
-                  ? '<i class="fa fa-phone" aria-hidden="true"></i> <a href="tel:"' +
-                    itemDetails.phone +
-                    '">' +
-                    itemDetails.phone +
-                    "</a>"
-                  : ""
+                ${itemDetails.phone
+                ? '<i class="fa fa-phone" aria-hidden="true"></i> <a href="tel:"' +
+                itemDetails.phone +
+                '">' +
+                itemDetails.phone +
+                "</a>"
+                : ""
               }
               </p>
               <p>
@@ -347,7 +348,7 @@ export class MapComponent implements OnInit {
   /**
    * Recenters the map to the current position of the user.
    */
-  private centerPositionOnMap(zoomLevel = 10) {
+  private centerPositionOnMap() {
     const lastCurrentPosition: Position = JSON.parse(
       localStorage.getItem("lastCurrentPosition") || "{}",
     );
@@ -361,15 +362,15 @@ export class MapComponent implements OnInit {
       if (
         lastCurrentPosition &&
         Math.floor(new Date().getTime() / 1000) -
-              lastCurrentPosition.timestamp <=
-          1800
+        lastCurrentPosition.timestamp <=
+        1800
       ) {
         this.map.setView(
           L.latLng(
             lastCurrentPosition.coords.latitude,
             lastCurrentPosition.coords.longitude,
           ),
-          zoomLevel,
+          this.defaultZoomLevelToHome,
         );
       } else {
         this.map.setView(this.defaultHomePosition, this.defaultZoomLevel);
@@ -391,7 +392,7 @@ export class MapComponent implements OnInit {
                 position.coords.latitude,
                 position.coords.longitude,
               ),
-              zoomLevel,
+              this.defaultZoomLevelToHome,
             );
           },
         );
