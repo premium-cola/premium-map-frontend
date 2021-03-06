@@ -43,6 +43,7 @@ a:last-child {
     cursor          : pointer;
     user-select     : none;
     margin-bottom   : 4px;
+    text-align      : center;
 }
 
 .wrapper {

@@ -19,6 +19,9 @@ export class DropdownComponent implements OnInit {
   public selectMessage: string;
 
   @Input()
+  public minWidth: string;
+
+  @Input()
   public selectItems: {
     [id: string]: SelectItem;
   };
@@ -40,6 +43,7 @@ export class DropdownComponent implements OnInit {
   constructor() {
     this.selectMessage = "";
     this.selectItems = {};
+    this.minWidth = "0";
   }
 
   ngOnInit(): void {

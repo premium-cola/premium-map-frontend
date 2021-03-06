@@ -132,6 +132,8 @@
     </div>
   </div>
 
+  <a (click)="toggleLegend()">?</a>
+
   <span class="group">
     <div [class.active]="countriesState.DE" (click)="toggleCountry('DE')">
       DE
@@ -144,12 +146,10 @@
     </div>
   </span>
 
-  <app-dropdown selectMessage="Kontakt-Art" [selectItems]="offertypes"
+  <app-dropdown selectMessage="Kontakt-Art" [selectItems]="offertypes" minWidth="150px"
     (selectItemValueChanged)="offertypeFilterChanged($event)"></app-dropdown>
 
-  <app-dropdown selectMessage="Produkte" [selectItems]="products"
+  <app-dropdown selectMessage="Produkte" [selectItems]="products" minWidth="100px"
     (selectItemValueChanged)="productsFilterChanged($event)"></app-dropdown>
-
-  <a (click)="toggleLegend()">?</a>
 </div>
 <div id="map"></div>

@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div class="wrapper" [style.min-width]="minWidth">
     <span class="select active" [class.active]="isDropdown" (click)="openDropdown()">{{ selectMessage }}
         <i class="fa fa-caret-down" aria-hidden="true"></i>
     </span>
