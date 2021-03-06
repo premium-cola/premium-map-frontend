@@ -2,7 +2,7 @@
  *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
  *  Minified to exactly what this project needed by Christoph Haefner
- *  copied over from node_modules/font-awesome/css/font-awesome.min.css
+ *  copied over from node_modules/font-awesome/css/font-awesome.css
  */
 /* FONT PATH
  * -------------------------- */
@@ -41,6 +41,10 @@
 }
 
 /* map.component.nts */
+.fa-home:before {
+    content: "\f015";
+}
+
 .fa-globe:before {
     content: "\f0ac";
 }
