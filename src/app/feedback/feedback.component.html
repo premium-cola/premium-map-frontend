@@ -1,7 +1,4 @@
-<div class="feedbackWrapper">
-    <a (click)="navigateHome()">
-        <i class="fa fa-times"></i>
-    </a>
+<app-popup>
     <h1>Feedback</h1>
     <div *ngIf="!feedbackSentMessage">
         <div class="info">
@@ -14,4 +11,4 @@
     <div *ngIf="feedbackSentMessage">
         <div class="info">{{ feedbackSentMessage }}</div>
     </div>
-</div>
+</app-popup>

@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -6,11 +7,14 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./popup.component.css']
 })
 export class PopupComponent implements OnInit {
-  @Output() close = new EventEmitter();
 
-  constructor() { }
+  constructor(private location: Location) { }
 
   ngOnInit(): void {
+  }
+
+  public navigateHome() {
+    this.location.back();
   }
 
 }

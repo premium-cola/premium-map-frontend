@@ -1,12 +1,3 @@
-.legendeWrapper {
-    max-width     : 36rem;
-    margin-left   : auto;
-    margin-right  : auto;
-    padding-left  : 2rem;
-    padding-right : 2rem;
-    padding-bottom: 1rem;
-}
-
 .info {
     background-color: #dddddd;
     color           : #3f3f3f;
@@ -25,10 +16,4 @@ h1,
 h2 {
     font-family: franklingothic, "Helvetica Neue", Arial, Helvetica, sans-serif;
     font-size  : 26px;
-}
-
-.fa-times {
-    float: right;
-    font-size: 20px;
-    cursor   : pointer;
 }

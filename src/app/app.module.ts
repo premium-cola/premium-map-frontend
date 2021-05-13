@@ -7,14 +7,12 @@ import { SearchService } from './search.service';
 import { AppComponent } from "./app.component";
 import { MapComponent } from "./map/map.component";
 import { DropdownComponent } from "./dropdown/dropdown.component";
-import { PopupComponent } from "./popup/popup.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     MapComponent,
     DropdownComponent,
-    PopupComponent,
   ],
   imports: [
     BrowserModule,
