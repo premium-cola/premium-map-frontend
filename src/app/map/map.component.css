@@ -1,8 +1,23 @@
 #map {
     /*height : 400px;*/
-    height: 100%;
+    height : 100%;
     width  : 100%;
     z-index: 10;
+}
+
+/*
+  If a dropdown is opened the topbar element expand over a big chunk of the map
+  since its located over the map (position:absolute) it blocks the user from
+  clicking on map points/groups under it. With the following two rules
+  the user can still click through the topbar, but still can use items within
+  the topbar (e.g. filters and searchbar)
+*/
+.topbar {
+    pointer-events : none;
+}
+
+.topbar > * {
+    pointer-events : auto;
 }
 
 .topbar {
@@ -35,6 +50,7 @@
     box-sizing        : border-box;
     margin-bottom     : 4px;
 }
+
 .topbar input[type="text"] {
     font-family       : franklingothic, "Helvetica Neue", Arial, Helvetica, sans-serif;
     height            : 39px;
@@ -48,10 +64,11 @@
     box-sizing        : border-box;
     margin-bottom     : 4px;
 }
+
 .topbar input[placeholder] {
-    overflow: hidden;
-    text-overflow:ellipsis;
-    white-space: nowrap;
+    overflow     : hidden;
+    text-overflow: ellipsis;
+    white-space  : nowrap;
 }
 
 .group {
