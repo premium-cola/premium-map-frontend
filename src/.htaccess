@@ -17,6 +17,15 @@
 <IfModule mod_expires.c>
     ExpiresActive On
 
+    # Make sure to not cache the index.html so that the updated
+    # js, css and fonts get downloaded
+    <filesMatch "\.html$">
+      <ifModule mod_headers.c>
+        Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+      </ifModule>
+    </filesMatch>
+
     # Cache hashed angular assets (js, css and fonts for now)
     # nearly indefinetly
     <filesMatch "\.[a-z0-9]+\.(bundle\.)?(js|css|ttf|woff2|eot|svg|woff)$">
