@@ -1,9 +1,7 @@
-.info {
-    background-color: #dddddd;
-    color           : #3f3f3f;
-    border-radius   : 3px;
-    margin          : 10px 0 0 0;
-    padding         : 12px;
+h1,
+h2 {
+    font-family: franklingothic, "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-size  : 26px;
 }
 
 h2 img {
@@ -12,8 +10,10 @@ h2 img {
     margin-bottom: -6px;
 }
 
-h1,
-h2 {
-    font-family: franklingothic, "Helvetica Neue", Arial, Helvetica, sans-serif;
-    font-size  : 26px;
+.info {
+    background-color: #dddddd;
+    color           : #3f3f3f;
+    border-radius   : 3px;
+    margin          : 10px 0 0 0;
+    padding         : 12px;
 }
