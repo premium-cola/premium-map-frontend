@@ -5,34 +5,59 @@
     z-index: 10;
 }
 
+.topbar {
+    top         : 0;
+    left        : 0;
+    right       : 0;
+    padding     : 0;
+    margin      : 0;
+    position    : absolute;
+    max-width   : 800px;
+    margin-right: auto;
+    margin-left : auto;
+    z-index     : 50;
+    padding     : 12px;
+    box-sizing  : border-box;
+}
+
+.searchAndLegend,
+.filter {
+    display  : flex;
+    flex-wrap: wrap;
+}
+
+.searchAndLegend {
+    justify-content: space-between;
+}
+
+.filter {
+    justify-content: space-evenly;
+}
+
 /*
-  If a dropdown is opened the topbar element expand over a big chunk of the map
+  If a dropdown is opened the topbar and filter element expand over a big chunk of the map
   since its located over the map (position:absolute) it blocks the user from
   clicking on map points/groups under it. With the following two rules
-  the user can still click through the topbar, but still can use items within
-  the topbar (e.g. filters and searchbar)
+  the user can still click through the filter elements, but still can use items within
+  the filter (e.g. dropdown and country filter)
 */
-.topbar {
-    pointer-events : none;
+.topbar, .filter {
+    pointer-events: none;
+}
+.searchAndLegend, .filter>* {
+    pointer-events: auto;
 }
 
-.topbar > * {
-    pointer-events : auto;
-}
-
-.topbar {
-    top            : 0;
-    left           : 0;
-    padding        : 0;
-    margin         : 0;
-    position       : absolute;
-    z-index        : 50;
-    width          : 100%;
-    padding        : 12px;
-    display        : flex;
-    flex-wrap      : wrap;
-    box-sizing     : border-box;
-    justify-content: space-between;
+/*
+  below 380px, aka. when the three filters don't
+  fit into one row horizontally anymore
+*/
+@media only screen and (max-width: 380px) {
+    .filter {
+        flex-direction: column;
+        align-content : space-between;
+        align-items   : stretch;
+    }
 }
 
 .topbar .searchArea,
@@ -85,7 +110,7 @@
     background-color: white;
     display         : flex;
     align-items     : center;
-    justify-content : space-between;
+    justify-content : space-evenly;
 }
 
 .group div {
@@ -132,23 +157,6 @@
     height: 32px;
     width : 28px;
     margin: 3px 8px 0 0;
-}
-
-/* Above 880px */
-@media only screen and (min-width: 880px) {
-    .topbar .searchArea {
-        flex-basis: initial;
-        flex-grow : 2;
-    }
-
-    .topbar a,
-    .group {
-        margin-left: 4px;
-    }
-
-    .group div {
-        margin-right: 4px;
-    }
 }
 
 .searchbarButton {

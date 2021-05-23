@@ -1,42 +1,45 @@
 <div class="topbar">
-  <div class="searchArea">
-    <input type="text" class="searchbar"
-      placeholder="Laden, (Groß)Handel, lokaler Kontakt oder Onlinehandel eingeben..." #searchInput
-      (keyup)="debounceSearchInput.next(searchInput.value)" />
-    <button class="searchbarButton" type="button">
-      <i class="fa fa-search" aria-hidden="true"></i>
-    </button>
-    <div class="searchResults">
-      <div class="searchResult" *ngFor="let searchResult of (searchResults | slice: 0:3)"
-        (click)="router.navigate([searchResult.id])">
-        <img src="assets/img/marker/{{ searchService.mapShopTypesToImage(['1']) }}" />
-        <div>
-          <h3>{{ searchResult.name }}</h3>
-          {{ searchResult.street }}, {{ searchResult.zip }}
-          {{ searchResult.city }}
+  <div class="searchAndLegend">
+    <div class="searchArea">
+      <input type="text" class="searchbar"
+        placeholder="Laden, (Groß)Handel, lokaler Kontakt oder Onlinehandel eingeben..." #searchInput
+        (keyup)="debounceSearchInput.next(searchInput.value)" />
+      <button class="searchbarButton" type="button">
+        <i class="fa fa-search" aria-hidden="true"></i>
+      </button>
+      <div class="searchResults">
+        <div class="searchResult" *ngFor="let searchResult of (searchResults | slice: 0:3)"
+          (click)="router.navigate([searchResult.id])">
+          <img src="assets/img/marker/{{ searchService.mapShopTypesToImage(['1']) }}" />
+          <div>
+            <h3>{{ searchResult.name }}</h3>
+            {{ searchResult.street }}, {{ searchResult.zip }}
+            {{ searchResult.city }}
+          </div>
         </div>
       </div>
     </div>
+    <a (click)="toggleLegend()">?</a>
   </div>
 
-  <a (click)="toggleLegend()">?</a>
+  <div class="filter">
+    <span class="group">
+      <div [class.active]="countriesState.DE" (click)="toggleCountry('DE')">
+        DE
+      </div>
+      <div [class.active]="countriesState.AT" (click)="toggleCountry('AT')">
+        AT
+      </div>
+      <div [class.active]="countriesState.CH" (click)="toggleCountry('CH')">
+        CH
+      </div>
+    </span>
 
-  <span class="group">
-    <div [class.active]="countriesState.DE" (click)="toggleCountry('DE')">
-      DE
-    </div>
-    <div [class.active]="countriesState.AT" (click)="toggleCountry('AT')">
-      AT
-    </div>
-    <div [class.active]="countriesState.CH" (click)="toggleCountry('CH')">
-      CH
-    </div>
-  </span>
+    <app-dropdown selectMessage="Kontakt-Art" [selectItems]="offertypes" minWidth="160px"
+      (selectItemValueChanged)="offertypeFilterChanged($event)"></app-dropdown>
 
-  <app-dropdown selectMessage="Kontakt-Art" [selectItems]="offertypes" minWidth="150px"
-    (selectItemValueChanged)="offertypeFilterChanged($event)"></app-dropdown>
-
-  <app-dropdown selectMessage="Produkte" [selectItems]="products" minWidth="100px"
-    (selectItemValueChanged)="productsFilterChanged($event)"></app-dropdown>
+    <app-dropdown selectMessage="Produkte" [selectItems]="products" minWidth="100px"
+      (selectItemValueChanged)="productsFilterChanged($event)"></app-dropdown>
+  </div>
 </div>
 <div id="map"></div>
