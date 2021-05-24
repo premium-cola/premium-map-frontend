@@ -6,6 +6,7 @@ import { SelectItem } from "../dropdown/dropdown.component";
 import { SearchResult, Item, SearchService } from "../search.service";
 import { ActivatedRoute, Router, Params } from "@angular/router";
 import { debounceTime } from "rxjs/operators";
+import { createCustomLeafletControl } from './CustomLeafletControl';
 
 @Component({
   selector: "app-map",
@@ -142,62 +143,18 @@ export class MapComponent implements OnInit {
       .addTo(this.map);
 
     // Add imprint control button
-    const imprintControl = L.Control.extend({
-      options: {
-        position: "bottomright",
-      },
-      onAdd: () => {
-        const container = L.DomUtil.create(
-          "div",
-          "leaflet-bar leaflet-control leaflet-control-custom",
-        );
-        container.style.backgroundColor = "white";
-        container.style.width = "30px";
-        container.style.height = "30px";
-        container.innerText = "i";
-        container.style.fontFamily = "icomoon";
-        container.style.fontSize = "100%";
-        container.style.textAlign = "center";
-        container.style.fontWeight = "700";
-        container.style.fontSize = "20px";
-        container.style.cursor = "pointer";
-        container.onclick = () => {
-          this.toggleImprint();
-        };
-        return container;
-      },
+    const imprintControl = createCustomLeafletControl("bottomright", "info", () => {
+      this.toggleImprint();
     });
     this.map.addControl(new imprintControl());
 
     // Add home control button
-    const homeControl = L.Control.extend({
-      options: {
-        position: "bottomleft",
-      },
-      onAdd: () => {
-        const container = L.DomUtil.create(
-          "div",
-          "leaflet-bar leaflet-control leaflet-control-custom",
-        );
-        container.style.backgroundColor = "white";
-        container.style.width = "30px";
-        container.style.height = "30px";
-        container.innerHTML = '<i class="fa fa-home" aria-hidden="true"></i>';
-        container.style.fontFamily = "icomoon";
-        container.style.fontSize = "100%";
-        container.style.textAlign = "center";
-        container.style.fontWeight = "700";
-        container.style.fontSize = "20px";
-        container.style.cursor = "pointer";
-        container.onclick = () => {
-          if (this.router.isActive("/", true /* exact */)) {
-            this.centerPositionOnMap();
-          } else {
-            this.router.navigateByUrl("/");
-          }
-        };
-        return container;
-      },
+    const homeControl = createCustomLeafletControl("bottomleft", "home", () => {
+      if (this.router.isActive("/", true /* exact */)) {
+        this.centerPositionOnMap();
+      } else {
+        this.router.navigateByUrl("/");
+      }
     });
     this.map.addControl(new homeControl());
 
