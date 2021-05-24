@@ -116,7 +116,14 @@ export class MapComponent implements OnInit {
         });
       });
 
-    this.centerPositionOnMap();
+    this.route.queryParams
+      .subscribe((queryParams: Params) => {
+        if (queryParams['userPosition']) {
+          this.map && this.centerMapOnUserPosition(this.map);
+        } else {
+          this.map && this.map.setView(this.defaultHomePosition, this.defaultZoomLevel);
+        }
+      })
 
     this.debounceSearchInput
       .pipe(debounceTime(200))
@@ -151,17 +158,37 @@ export class MapComponent implements OnInit {
     // Add home control button
     const homeControl = createCustomLeafletControl("bottomleft", "home", () => {
       if (this.router.isActive("/", true /* exact */)) {
-        this.centerPositionOnMap();
+        this.map && this.map.setView(this.defaultHomePosition, this.defaultZoomLevel);
       } else {
         this.router.navigateByUrl("/");
       }
     });
     this.map.addControl(new homeControl());
 
+    // Add locate control button
+    const locateControl = createCustomLeafletControl("bottomleft", "crosshairs", () => {
+      this.router.navigate(["/"], { queryParams: { userPosition: 'true' } })
+    });
+    this.map.addControl(new locateControl());
+
     // Hide search results on map clicked event
     this.map.addEventListener("click", () => {
       this.searchResults = [];
     });
+  }
+
+  private centerMapOnUserPosition(map: L.Map): void {
+    if (!('geolocation' in navigator)) {
+      return;
+    }
+    navigator.geolocation.getCurrentPosition((position) => {
+      const latlng = new L.LatLng(position.coords.latitude, position.coords.longitude);
+      map.setView(latlng, this.defaultZoomLevelToHome);
+    }, () => {
+      this.router.navigateByUrl("/");
+    }, {
+      maximumAge: 30 * 60 * 1000
+    })
   }
 
   /**
@@ -286,61 +313,6 @@ export class MapComponent implements OnInit {
 
     if (complete) {
       complete();
-    }
-  }
-
-  /**
-   * Recenters the map to the current position of the user.
-   */
-  private centerPositionOnMap() {
-    const lastCurrentPosition: Position = JSON.parse(
-      localStorage.getItem("lastCurrentPosition") || "{}",
-    );
-
-    /**
-     * Checks if the last saved position is no older than 30 minutes.
-     * If it isn't oldet than 30 minutes then the location is used immediately instead of requesting it
-     * through the browser API.
-     */
-    if (this.map) {
-      if (
-        lastCurrentPosition &&
-        Math.floor(new Date().getTime() / 1000) -
-        lastCurrentPosition.timestamp <=
-        1800
-      ) {
-        this.map.setView(
-          L.latLng(
-            lastCurrentPosition.coords.latitude,
-            lastCurrentPosition.coords.longitude,
-          ),
-          this.defaultZoomLevelToHome,
-        );
-      } else {
-        this.map.setView(this.defaultHomePosition, this.defaultZoomLevel);
-
-        navigator.geolocation.getCurrentPosition(
-          (position: Position) => {
-            localStorage.setItem(
-              "lastCurrentPosition",
-              JSON.stringify({
-                coords: {
-                  latitude: position.coords.latitude,
-                  longitude: position.coords.longitude,
-                },
-                timestamp: position.timestamp,
-              }),
-            );
-            this.map && this.map.setView(
-              L.latLng(
-                position.coords.latitude,
-                position.coords.longitude,
-              ),
-              this.defaultZoomLevelToHome,
-            );
-          },
-        );
-      }
     }
   }
 

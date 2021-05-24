@@ -49,6 +49,10 @@
     content: "\f015";
 }
 
+.fa-crosshairs:before {
+    content: "\f05b";
+}
+
 .fa-globe:before {
     content: "\f0ac";
 }
