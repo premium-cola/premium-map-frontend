@@ -22,7 +22,7 @@ export class MapComponent implements OnInit {
   );
 
   private defaultZoomLevel = 7;
-  private defaultZoomLevelToHome = 14;
+  private defaultZoomLevelToHome = 12;
 
   // State of the offertypes in the top bar
   public offertypes: { [id: string]: SelectItem } = {
