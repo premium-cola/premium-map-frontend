@@ -67,6 +67,7 @@ export class SearchService {
     });
 
     let abbriviation = '';
+    let hash = '';
 
     // s = Sprecher/lokaler Kontakt, h = Haendler
     if (
@@ -74,57 +75,66 @@ export class SearchService {
       normalizedShopTypes.indexOf('2') > -1
     ) {
       abbriviation = 'sh';
+      hash = '31e7eb2623d14e4f902f9538e5b8dd6ec1a8b32d7e2f30ed1839b6672b384875';
       // s = Sprecher/lokaler Kontakt, l = Laden
     } else if (
       normalizedShopTypes.indexOf('3') > -1 &&
       normalizedShopTypes.indexOf('1') > -1
     ) {
       abbriviation = 'sl';
+      hash = '1b7c1e267d798113591df7c23dbe558813f6718c4db348e341c5ef09220d87f4';
       // l = Laden, h = Haendler
     } else if (
       normalizedShopTypes.indexOf('1') > -1 &&
       normalizedShopTypes.indexOf('2') > -1
     ) {
       abbriviation = 'h';
+      hash = 'e30564530d085950c9d25baf877b72bede18682696a01332803249a20f5f6a8d';
       // h = haendler, o = Onlinehandel
     } else if (
       normalizedShopTypes.indexOf('2') > -1 &&
       normalizedShopTypes.indexOf('4') > -1
     ) {
       abbriviation = 'h';
+      hash = 'e30564530d085950c9d25baf877b72bede18682696a01332803249a20f5f6a8d';
       // l = laden, o = Onlinehandel
     } else if (
       normalizedShopTypes.indexOf('1') > -1 &&
       normalizedShopTypes.indexOf('4') > -1
     ) {
       abbriviation = 'l';
+      hash = 'b3124d196493d83e9aa500089c5ce67490a7cec1847fce891842f2d3cbf31f1f';
       // l = Laden
     } else if (
       normalizedShopTypes.indexOf('1') > -1 &&
       normalizedShopTypes.length === 1
     ) {
       abbriviation = 'l';
+      hash = 'b3124d196493d83e9aa500089c5ce67490a7cec1847fce891842f2d3cbf31f1f';
       // h = Haendler
     } else if (
       normalizedShopTypes.indexOf('2') > -1 &&
       normalizedShopTypes.length === 1
     ) {
       abbriviation = 'h';
+      hash = 'e30564530d085950c9d25baf877b72bede18682696a01332803249a20f5f6a8d';
       // s = Sprecher/lokaler Kontakt
     } else if (
       normalizedShopTypes.indexOf('3') > -1 &&
       normalizedShopTypes.length === 1
     ) {
       abbriviation = 's';
+      hash = '58b6019d3d0c125cc029d122ca9fa075cd77023d4bade1f67bc67e077525d486';
       // o = Onlinehandel
     } else if (
       normalizedShopTypes.indexOf('4') > -1 &&
       normalizedShopTypes.length === 1
     ) {
       abbriviation = 'o';
+      hash = '46085aa61342e805eb5bfb6fa9e2f6b96e95a45a01ab2e58d9f33a3aa74ef0ae';
     }
 
-    return `${['marker-icon', abbriviation].join('-')}.svg`;
+    return `${['marker-icon', abbriviation].join('-')}.${hash}.svg`;
   }
 }
 

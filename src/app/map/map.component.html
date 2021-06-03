@@ -10,7 +10,7 @@
       <div class="searchResults">
         <div class="searchResult" *ngFor="let searchResult of (searchResults | slice: 0:3)"
           (click)="router.navigate([searchResult.id])">
-          <img src="assets/img/marker/{{ searchService.mapShopTypesToImage(['1']) }}" />
+          <img src="assets/svg-icons/{{ searchService.mapShopTypesToImage(['1']) }}" />
           <div>
             <h3>{{ searchResult.name }}</h3>
             {{ searchResult.street }}, {{ searchResult.zip }}

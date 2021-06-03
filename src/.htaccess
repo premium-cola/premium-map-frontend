@@ -31,4 +31,9 @@
     <filesMatch "\.[a-z0-9]+\.(bundle\.)?(js|css|ttf|woff2|eot|svg|woff)$">
         ExpiresDefault "access 2 years"
     </filesMatch>
+
+    # Cache manually hashed svg icon nearly indefinetly
+    <filesMatch "\.[a-z0-9]+\.svg$">
+        ExpiresDefault "access 2 years"
+    </filesMatch>
 </IfModule>

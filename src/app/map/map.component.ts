@@ -30,25 +30,25 @@ export class MapComponent implements OnInit {
       id: "laeden",
       name: "Laden",
       value: true,
-      icon: "marker-icon-l.svg",
+      icon: "marker-icon-l.b3124d196493d83e9aa500089c5ce67490a7cec1847fce891842f2d3cbf31f1f.svg",
     },
     haendler: {
       id: "haendler",
       name: "(Groß)Handel",
       value: true,
-      icon: "marker-icon-h.svg",
+      icon: "marker-icon-h.e30564530d085950c9d25baf877b72bede18682696a01332803249a20f5f6a8d.svg",
     },
     sprecher: {
       id: "sprecher",
       name: "lokaler Kontakt",
       value: true,
-      icon: "marker-icon-s.svg",
+      icon: "marker-icon-s.58b6019d3d0c125cc029d122ca9fa075cd77023d4bade1f67bc67e077525d486.svg",
     },
     webshop: {
       id: "webshop",
       name: "Onlinehandel",
       value: true,
-      icon: "marker-icon-o.svg",
+      icon: "marker-icon-o.46085aa61342e805eb5bfb6fa9e2f6b96e95a45a01ab2e58d9f33a3aa74ef0ae.svg",
     },
   };
 
@@ -218,7 +218,7 @@ export class MapComponent implements OnInit {
         L.latLng(item[1][0], item[1][1]),
         {
           icon: L.icon({
-            iconUrl: `assets/img/marker/${this.searchService.mapShopTypesToImage(
+            iconUrl: `assets/svg-icons/${this.searchService.mapShopTypesToImage(
               item[2],
             )
               }`,
