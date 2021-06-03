@@ -14,10 +14,12 @@
   <link rel="preload" href="fontawesome-webfont.20fd1704ea223900efa9.woff2?v=4.7.0" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="franklingothicsb-xcon-webfont.34144143b9e52995252a.woff2" as="font" type="font/woff2" crossorigin>
 
-  <link rel="preconnect" href="https://api.landkarte.premium-cola.de/">
-  <link rel="preconnect" href="https://a.tile.openstreetmap.org/">
-  <link rel="preconnect" href="https://b.tile.openstreetmap.org/">
-  <link rel="preconnect" href="https://c.tile.openstreetmap.org/">
+  <link rel="dns-prefetch" href="https://api.landkarte.premium-cola.de">
+  <link rel="preconnect" href="https://api.landkarte.premium-cola.de">
+
+  <link rel="preload" href="https://a.tile.openstreetmap.org/7/67/41.png" as="image" type="image/png"> <!-- "Niedersachsen", Norden -->
+  <link rel="preload" href="https://b.tile.openstreetmap.org/7/67/42.png" as="image" type="image/png"> <!-- "Kassel", Mitte -->
+  <link rel="preload" href="https://c.tile.openstreetmap.org/7/67/43.png" as="image" type="image/png"> <!-- "Wuerzburg", Sueden -->
 </head>
 <body>
   <app-root></app-root>
