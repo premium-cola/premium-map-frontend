@@ -7,6 +7,7 @@ import { SearchResult, Item, SearchService } from "../search.service";
 import { ActivatedRoute, Router, Params } from "@angular/router";
 import { debounceTime } from "rxjs/operators";
 import { createCustomLeafletControl } from './CustomLeafletControl';
+import { distanceByLatLong } from './distanceByLatLong';
 
 @Component({
   selector: "app-map",
@@ -20,6 +21,7 @@ export class MapComponent implements OnInit {
     50.93766174471314,
     9.777832031250002,
   );
+  public homePosition: Coordinates | undefined = undefined;
 
   private defaultZoomLevel = 7;
   private defaultZoomLevelToHome = 12;
@@ -182,6 +184,7 @@ export class MapComponent implements OnInit {
       return;
     }
     navigator.geolocation.getCurrentPosition((position) => {
+      this.homePosition = position.coords;
       const latlng = new L.LatLng(position.coords.latitude, position.coords.longitude);
       map.setView(latlng, this.defaultZoomLevelToHome);
     }, () => {
@@ -322,6 +325,12 @@ export class MapComponent implements OnInit {
       .subscribe((searchResults: SearchResult[]) => {
         this.searchResults = searchResults;
       });
+  }
+
+  public distanceByLatLong(lat1: string, lon1: string, lat2: number, lon2: number): number {
+    const lat1Number = Number.parseFloat(lat1);
+    const lon1Number = Number.parseFloat(lon1);
+    return Math.round(distanceByLatLong(lat1Number, lon1Number, lat2, lon2));
   }
 
   /**

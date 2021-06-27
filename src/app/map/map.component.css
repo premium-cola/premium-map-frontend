@@ -41,10 +41,13 @@
   the user can still click through the filter elements, but still can use items within
   the filter (e.g. dropdown and country filter)
 */
-.topbar, .filter {
+.topbar,
+.filter {
     pointer-events: none;
 }
-.searchAndLegend, .filter>* {
+
+.searchAndLegend,
+.filter>* {
     pointer-events: auto;
 }
 
@@ -175,6 +178,8 @@
 }
 
 .searchResult {
+    display         : flex;
+    align-items     : center;
     font-family     : "Helvetica Neue", Arial, Helvetica, sans-serif;
     width           : 100%;
     background-color: white;
@@ -182,6 +187,10 @@
     font-size       : 14px;
     cursor          : pointer;
     border-top      : 1px solid gray;
+}
+
+.searchResult .address {
+    flex-grow: 1;
 }
 
 .searchResult h3 {
@@ -193,16 +202,12 @@
     border-top: none;
 }
 
-.searchResult img {
+.searchResult img,
+.searchResult .homePosition {
     margin: 14px;
 }
 
 .searchResult h3 {
     margin-top   : auto;
     margin-bottom: auto;
-}
-
-.searchResult div {
-    height     : 38px;
-    padding-top: 10px;
 }

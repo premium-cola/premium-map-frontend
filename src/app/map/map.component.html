@@ -11,10 +11,13 @@
         <div class="searchResult" *ngFor="let searchResult of (searchResults | slice: 0:3)"
           (click)="router.navigate([searchResult.id])">
           <img src="assets/svg-icons/{{ searchService.mapShopTypesToImage(['1']) }}" />
-          <div>
+          <div class="address">
             <h3>{{ searchResult.name }}</h3>
             {{ searchResult.street }}, {{ searchResult.zip }}
             {{ searchResult.city }}
+          </div>
+          <div class="homePosition" *ngIf="homePosition">
+            {{ distanceByLatLong(searchResult.lat, searchResult.lng, homePosition.latitude, homePosition.longitude) }} km
           </div>
         </div>
       </div>
