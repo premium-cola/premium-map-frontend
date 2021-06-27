@@ -60,17 +60,17 @@ export class MapComponent implements OnInit {
     },
     bier: {
       id: "bier",
-      name: "Bier",
+      name: "Bier (Bio)",
       value: true,
     },
     frohlunder: {
       id: "frohlunder",
-      name: "Frohlunder",
+      name: "Frohlunder (Bio)",
       value: true,
     },
     muntermate: {
       id: "muntermate",
-      name: "Muntermate",
+      name: "Muntermate (Bio)",
       value: true,
     },
   };
