@@ -21,7 +21,7 @@ export class MapComponent implements OnInit {
     50.93766174471314,
     9.777832031250002,
   );
-  public homePosition: Coordinates | undefined = undefined;
+  public homePosition: GeolocationCoordinates | undefined = undefined;
 
   private defaultZoomLevel = 7;
   private defaultZoomLevelToHome = 12;
@@ -444,7 +444,7 @@ export class MapComponent implements OnInit {
 
   public clearSearchResults() {
     this.searchResults = [];
-    this.debounceSearchInput.next();
+    this.debounceSearchInput.next("");
   }
 }
 
