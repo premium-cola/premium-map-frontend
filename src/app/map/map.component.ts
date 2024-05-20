@@ -280,14 +280,6 @@ export class MapComponent implements OnInit {
                 itemDetails.email +
                 "</a>"
                 : ""
-              }<br>
-                ${itemDetails.phone
-                ? '<i class="fa fa-phone" aria-hidden="true"></i> <a href="tel:"' +
-                itemDetails.phone +
-                '">' +
-                itemDetails.phone +
-                "</a>"
-                : ""
               }
               </p>
               <p>

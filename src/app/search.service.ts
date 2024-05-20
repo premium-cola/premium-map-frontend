@@ -145,7 +145,6 @@ export interface SearchResult {
   lng: string;
   name: string;
   offertypes: Array<string>;
-  phone: string;
   uri: string;
   web: string;
   city: string;
@@ -163,7 +162,6 @@ export interface Item {
   zip: string;
   web: string;
   email: string;
-  phone: string;
   uri: string;
 }
 
